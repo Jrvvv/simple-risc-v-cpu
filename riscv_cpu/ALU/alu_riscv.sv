@@ -17,8 +17,8 @@ module alu_riscv
       ALU_OR   :  result_o = a_i | b_i;
       ALU_AND  :  result_o = a_i & b_i;
       ALU_SRA  :  result_o = $signed(a_i) >>> b_i[4:0];
-      ALU_SRL  :  result_o = a_i >>  b_i[4:0];
-      ALU_SLL  :  result_o = a_i <<  b_i[4:0];
+      ALU_SRL  :  result_o = a_i >> b_i[4:0];
+      ALU_SLL  :  result_o = a_i << b_i[4:0];
       ALU_SLTS :  result_o = {31'b0, ($signed(a_i) < $signed(b_i))};
       ALU_SLTU :  result_o = {31'b0, (a_i < b_i)};
       default  :  result_o = 32'b0;
