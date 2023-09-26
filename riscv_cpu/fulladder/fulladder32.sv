@@ -1,5 +1,3 @@
-`include "fulladder4.sv"
-
 module fulladder32
 (
   input  logic          carry_i,
@@ -18,8 +16,8 @@ genvar i;
 
 generate
   for (i = 0; i < 8; i = i + 1) begin : newgen
-  localparam from = i * 4;
-  localparam to = (i + 1) * 4 - 1;
+    localparam from = i * 4;
+    localparam to = (i + 1) * 4 - 1;
       
     fulladder4 adder (
       .carry_i(carry_wires[i]),

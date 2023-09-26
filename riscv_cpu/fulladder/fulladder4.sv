@@ -1,5 +1,3 @@
-`include "fulladder.sv"
-
 module fulladder4
 (
   input  logic         carry_i,

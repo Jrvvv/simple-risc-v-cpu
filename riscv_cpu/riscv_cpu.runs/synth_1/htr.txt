@@ -6,4 +6,4 @@
 # Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 #
 
-vivado -log fulladder32.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source fulladder32.tcl
+vivado -log alu_riscv.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source alu_riscv.tcl

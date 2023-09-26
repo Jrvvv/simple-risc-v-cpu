@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1694654196">
-  <File Type="VDS-TIMING-PB" Name="fulladder32_timing_summary_synth.pb"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="fulladder32_timing_summary_synth.rpt"/>
-  <File Type="RDS-DCP" Name="fulladder32.dcp"/>
-  <File Type="RDS-UTIL-PB" Name="fulladder32_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="fulladder32_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="fulladder32_drc_synth.rpt"/>
-  <File Type="RDS-RDS" Name="fulladder32.vds"/>
-  <File Type="REPORTS-TCL" Name="fulladder32_reports.tcl"/>
-  <File Type="PA-TCL" Name="fulladder32.tcl"/>
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1695465946">
+  <File Type="VDS-TIMING-PB" Name="alu_riscv_timing_summary_synth.pb"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="alu_riscv_timing_summary_synth.rpt"/>
+  <File Type="RDS-DCP" Name="alu_riscv.dcp"/>
+  <File Type="RDS-UTIL-PB" Name="alu_riscv_utilization_synth.pb"/>
+  <File Type="RDS-UTIL" Name="alu_riscv_utilization_synth.rpt"/>
+  <File Type="RDS-PROPCONSTRS" Name="alu_riscv_drc_synth.rpt"/>
+  <File Type="RDS-RDS" Name="alu_riscv.vds"/>
+  <File Type="REPORTS-TCL" Name="alu_riscv_reports.tcl"/>
+  <File Type="PA-TCL" Name="alu_riscv.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PPRDIR/fulladder/fulladder.sv">
-      <FileInfo SFType="VHeader">
+      <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
     <File Path="$PPRDIR/fulladder/fulladder4.sv">
-      <FileInfo SFType="VHeader">
+      <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
@@ -30,9 +32,23 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PPRDIR/ALU/alu_opcodes_pkg.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/ALU/alu_riscv.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="fulladder32"/>
+      <Option Name="TopModule" Val="alu_riscv"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">

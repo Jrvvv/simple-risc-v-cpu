@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module alu_riscv
 (
     input  logic [31:0] a_i,
