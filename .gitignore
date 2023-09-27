@@ -18,18 +18,18 @@
 !*.vhd
 !*.v
 !*.sv
-!*.bd
-!*.edif
+# !*.bd
+# !*.edif
 #########
 #IP files
 #########
 #.xci: synthesis and implemented not possible - you need to return back to the previous version to generate output products
 #.xci + .dcp: implementation possible but not re-synthesis
 #*.xci(www.spiritconsortium.org)
-!*.xci
+# !*.xci
 #*.dcp(checkpoint files)
-!*.dcp
-!*.vds
+# !*.dcp
+# !*.vds
 !*.pb
 #All bd comments and layout coordinates are stored within .ui
 !*.ui
@@ -37,19 +37,19 @@
 #########
 #System Generator
 #########
-!*.mdl
-!*.slx
-!*.bxml
+# !*.mdl
+# !*.slx
+# !*.bxml
 #########
 #Simulation logic analyzer
 #########
-!*.wcfg
-!*.coe
+# !*.wcfg
+# !*.coe
 #########
 #MIG
 #########
-!*.prj
-!*.mem
+# !*.prj
+# !*.mem
 #########
 #Project files
 #########
@@ -57,7 +57,7 @@
 #Do NOT ignore *.xpr files
 !*.xpr
 #Include *.xml files for 2013.4 or earlier version
-!*.xml
+# !*.xml
 #########
 #Constraint files
 #########
@@ -70,18 +70,18 @@
 #########
 #Journal - files
 #########
-!*.jou
+# !*.jou
 #########
 #Reports
 #########
-!*.rpt
-!*.txt
-!*.vdi
+# !*.rpt
+# !*.txt
+# !*.vdi
 #########
 #C-files
 #########
 !*.c
 !*.h
 !*.elf
-!*.bmm
-!*.xmp
+# !*.bmm
+# !*.xmp
