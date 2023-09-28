@@ -1,23 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: MIET
-// Engineer: Nikita Bulavin
-// 
-// Create Date:    
-// Design Name: 
-// Module Name:    tb_miriscv_alu
-// Project Name:   RISCV_practicum
-// Target Devices: Nexys A7-100T
-// Tool Versions: 
-// Description: tb for miriscv alu
-// 
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
 
 module alu_simple_tb();
 
@@ -32,7 +13,7 @@ logic [4:0]  operator_i;
 logic [31:0] operand_a_i;
 logic [31:0] operand_b_i;
 
-logic [31:0] result_o;
+wire logic [31:0] result_o;
 logic        comparison_result_o;
 
 alu_riscv DUT
@@ -72,6 +53,19 @@ logic                   comparison_result_dump;
   initial
     begin
       #10;
+//        operator_i = ALU_ADD;
+//        operand_a_i = 32'hAABB;
+//        operand_b_i = 32'h00AA;
+//      #10;
+//      if( (32'hab65 !== result_o) || (1'b0 !== comparison_result_o) ) begin
+//          $display("ERROR Operator: %s", operator_type, " operand_A: %h", operand_a_i, " operand_B: %h", operand_b_i, " your_Result: %h", result_o, " Result_dump: %h", result_dump, " your_Flag: %h", comparison_result_o, " Flag_dump: %h", comparison_result_dump);
+//          err_count = err_count + 1'b1;
+//      end else begin
+//          $display("SUCCESS");
+//      end
+//      #10;
+//      $finish;
+      
       check_op(ALU_ADD,  32'hAABB, 32'h00AA, 32'hAABB + 32'h00AA,            1'b0);
       check_op(ALU_SUB,  32'hAABB, 32'h00AA, 32'hAABB - 32'h00AA,            1'b0);
       check_op(ALU_SUB,  32'h00AA, 32'hAABB, 32'h00AA - 32'hAABB,            1'b0);
@@ -95,6 +89,8 @@ logic                   comparison_result_dump;
       check_op(ALU_EQ,  32'hAABB,     32'hAABB,  1'b0,  (32'hAABB == 32'hAABB));
       check_op(ALU_NE,  32'hAABB,     32'h00AA,  1'b0,  (32'hAABB != 32'h00AA));
       check_op(ALU_NE,  32'hAABB,     32'hAABB,  1'b0,  (32'hAABB != 32'hAABB));
+      $finish;
+
     end
 
 always @(*) begin
