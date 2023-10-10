@@ -31,22 +31,33 @@ module data_mem
 );
 
     logic [31:0] RAM [4095:0];
+    logic [31:0] current_data;
     
     // reading
     always_ff @(posedge clk_i) begin
-        if (!mem_req_i && write_enable_i)
-            read_data_o <= 32'hfa11_1eaf; 
-        else if (mem_req_i && addr_i <= 32'd16383)
-            read_data_o <= RAM[addr_i[31:2]];
-        else 
-            read_data_o <= 32'hdead_beaf; 
+        if (mem_req_i)
+            current_data <= RAM[addr_i[31:2]];
+        else
+            current_data <= current_data; 
     end
     
     // writing
     always_ff @(posedge clk_i) begin
         if (mem_req_i && write_enable_i)
             RAM[addr_i[31:2]] <= write_data_i;
-            // LATCH ????
+        else
+            RAM[addr_i[31:2]] <= RAM[addr_i[31:2]];
+    end
+    
+    always_comb begin
+        if (!mem_req_i || write_enable_i)
+            read_data_o = 32'hfa11_1eaf;
+        else if (mem_req_i && addr_i <= 32'd16383)
+            read_data_o = current_data;
+        else if (mem_req_i && addr_i > 32'd16383)
+            read_data_o = 32'hdead_beef;
+        else
+            read_data_o = read_data_o;
     end
 
 endmodule
