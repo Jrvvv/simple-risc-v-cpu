@@ -31,6 +31,6 @@ module instr_mem
     initial
         $readmemh("program.txt", RAM);
         
-    assign read_data_o = (addr_i < 32'd4095) ? RAM[addr_i[31:2]] : 32'd0;
+    assign read_data_o = (addr_i <= 32'd4095) ? RAM[addr_i[31:2]] : 32'd0;
     
 endmodule
