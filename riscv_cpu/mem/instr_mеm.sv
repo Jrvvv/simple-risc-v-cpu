@@ -28,8 +28,11 @@ module instr_mem
 
     logic [31:0] RAM [1023:0];
     
-    initial
-        $readmemh("program.txt", RAM);
+    initial begin
+//        $readmemh("program.txt", RAM);
+        $readmemh("example.txt", RAM);
+
+    end
         
     assign read_data_o = (addr_i <= 32'd4095) ? RAM[addr_i[31:2]] : 32'd0;
     

@@ -123,7 +123,7 @@ module CYBERcobra
         .read_data2_o     (RD2)
     );
     
-    ALU_riscv ALU_dev
+    alu_riscv alu_dev
     (
         .alu_op_i (opcode),
         .a_i      (RD1),
