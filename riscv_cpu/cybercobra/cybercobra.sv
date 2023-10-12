@@ -34,28 +34,28 @@ module CYBERcobra
     // basic ALU wires
     logic [31:0]    ALU_res;
     logic           ALU_flag;
-    logic [27:23]   opcode;
+    logic [4:0]     opcode;
     
     // basic instr mem wires
     logic [31:0]    instr_mem_out;
     
     // basic RF wires
     logic           WE;
-    logic [22:18]   RA1;
-    logic [17:13]   RA2;
+    logic [4:0]     RA1;
+    logic [4:0]     RA2;
     logic [4:0]     WA;
     logic [31:0]    WD;
     logic [31:0]    RD1;
     logic [31:0]    RD2;
     
     // select WD reg file input
-    logic [29:28]   WS;
+    logic [1:0]   WS;
     
     // const to RF from sw (extended)
     logic [31:0]    sw_out_SE;
     
     // const to RF from instruction
-    logic [27:5]    RF_const;
+    logic [22:0]    RF_const;
     logic [31:0]    RF_const_SE;
     
     // PC offset wires
@@ -71,10 +71,14 @@ module CYBERcobra
      );
     
     always_ff @(posedge clk_i or posedge rst_i) begin
-            if (rst_i)
+            if (rst_i) begin
                 PC <= 32'd0;
-            else
-                PC <= (PC_SS) ? offset_SE : 32'd4; 
+            end else begin
+                if (PC_SS)
+                    PC <= PC + offset_SE;
+                else
+                    PC <= PC + 32'd4; 
+            end
     end
     
     // ----------------- wires from instr mem -----------------
@@ -95,7 +99,7 @@ module CYBERcobra
     
         // RF const from instr
     assign RF_const     = instr_mem_out[27:5];
-    assign RF_const_SE  = {{9{RF_const[27]}}, RF_const[27:5]};
+    assign RF_const_SE  = {{9{RF_const[22]}}, RF_const[22:0]};
     
         // RF const from switch
     assign sw_out_SE    = {{16{sw_i[15]}}, sw_i[15:0]};

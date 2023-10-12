@@ -30,7 +30,10 @@ module instr_mem
     
     initial begin
 //        $readmemh("program.txt", RAM);
-        $readmemh("example.txt", RAM);
+//        $readmemh("example.txt", RAM);
+//        $readmemh("demo.txt", RAM);
+        $readmemh("prog_loop.txt", RAM);
+
 
     end
         
