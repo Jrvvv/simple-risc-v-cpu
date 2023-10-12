@@ -32,8 +32,7 @@ module instr_mem
 //        $readmemh("program.txt", RAM);
 //        $readmemh("example.txt", RAM);
 //        $readmemh("demo.txt", RAM);
-//        $readmemh("prog_loop.txt", RAM);
-        $readmemh("prog.txt", RAM);
+        $readmemh("my_prog_converted.txt", RAM);
 
 
     end
