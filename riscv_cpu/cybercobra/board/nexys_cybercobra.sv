@@ -10,7 +10,7 @@ module nexys_CYBERcobra_dz(
     );
     
     CYBERcobra dut(
-    .clk_i(btn),
+    .clk_i(CLK100), // btn for staged execution
     .rst_i(!resetn),
     .sw_i(SW[15:0]),
     .out_o(out)
@@ -58,7 +58,7 @@ always @(posedge CLK100) begin
             ANreg[5]: semseg <= out[23:20];
             ANreg[6]: semseg <= out[27:24];
             ANreg[7]: semseg <= out[31:28];
-        endcase
+        endcase 
         case (semseg)
             4'h0: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0000001;
             4'h1: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1001111;
