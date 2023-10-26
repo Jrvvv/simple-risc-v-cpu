@@ -28,6 +28,7 @@ module CYBERcobra
     output logic    [31:0]  out_o
 );
 // ----------------- wires and regs -----------------
+
     // programm counter
     logic [31:0]    PC;
 
