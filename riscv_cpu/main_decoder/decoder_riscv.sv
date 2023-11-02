@@ -35,7 +35,7 @@ module decoder_riscv
         // output values by-default (not case's default!!)
         a_sel_o         <= OP_A_RS1;
         b_sel_o         <= OP_B_IMM_I;
-        alu_op_o        <= OP_OPCODE;
+        alu_op_o        <= ALU_ADD;
 
         csr_op_o        <= CSR_RW;
         csr_we_o        <= 1'b0;
@@ -56,17 +56,23 @@ module decoder_riscv
         case(opcode)
             // REG-REG OPERS
             {OP_OPCODE,       2'b11}: begin
+                b_sel_o     <= OP_B_RS2;
+
                 case(funct3)
                     // ADD and SUB
                     3'h0: begin
                         case(funct7)
                             // ADD
-                            7'h0 :   begin
+                            7'h0:    begin
+                                alu_op_o <= ALU_ADD;
                             end
                             // SUB
                             7'h20:   begin
+                                alu_op_o <= ALU_SUB;
                             end
                             default: begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
                             end
                         endcase 
                     end
@@ -74,9 +80,12 @@ module decoder_riscv
                     // XOR
                     3'h4: begin
                         case(funct7)
-                            7'h0 :   begin
+                            7'h0:    begin
+                                alu_op_o <= ALU_XOR;
                             end
                             default: begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
                             end
                         endcase 
                     end
@@ -84,9 +93,12 @@ module decoder_riscv
                     // OR
                     3'h6: begin
                         case(funct7)
-                            7'h0 :   begin
+                            7'h0:    begin
+                                alu_op_o <= ALU_OR;
                             end
                             default: begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
                             end
                         endcase 
                     end
@@ -94,9 +106,12 @@ module decoder_riscv
                     // AND
                     3'h7: begin
                         case(funct7)
-                            7'h0 :   begin
+                            7'h0:    begin
+                                alu_op_o <= ALU_AND;
                             end
                             default: begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
                             end
                         endcase 
                     end
@@ -104,9 +119,12 @@ module decoder_riscv
                     // SHIFT LEFT LOGICAL
                     3'h1: begin
                         case(funct7)
-                            7'h0 :   begin
+                            7'h0:    begin
+                                alu_op_o <= ALU_SLL;
                             end
                             default: begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
                             end
                         endcase 
                     end
@@ -115,12 +133,16 @@ module decoder_riscv
                     3'h5: begin
                         case(funct7)
                             // SHIFT RIGHT LOGICAL
-                            7'h0 : begin
+                            7'h0:   begin
+                                alu_op_o <= ALU_SRL;
                             end
                             // SHIFT RIGHT ARITHMETIC
-                            7'h20: begin
+                            7'h20:   begin
+                                alu_op_o <= ALU_SRA;
                             end
                             default: begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
                             end
                         endcase
                     end
@@ -128,9 +150,12 @@ module decoder_riscv
                     // SET LESS THEN (rs1 < rs2)
                     3'h2: begin
                         case(funct7)
-                            7'h0 : begin
+                            7'h0:    begin
+                                alu_op_o <= ALU_SLTS;
                             end
                             default: begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
                             end
                         endcase
                     end
@@ -138,13 +163,18 @@ module decoder_riscv
                     // SET LESS THEN UNSIGNED (rs1 < rs2)
                     3'h3: begin
                         case(funct7)
-                            7'h0 : begin
+                            7'h0:    begin
+                                alu_op_o <= ALU_SLTU;
                             end
                             default: begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
                             end
                         endcase
                     end
                     default: begin
+                        illegal_instr_o <= 1'b1;
+                        gpr_we_o        <= 1'b0;
                     end
                 endcase
             end
@@ -154,27 +184,33 @@ module decoder_riscv
                 case(funct3)
                     // ADD I
                     3'h0: begin
+                        alu_op_o <= ALU_ADD;
                     end
 
                     // XOR I
                     3'h4: begin
+                        alu_op_o <= ALU_XOR;
                     end
 
                     // OR I
                     3'h6: begin
+                        alu_op_o <= ALU_OR;
                     end
 
                     // AND I
                     3'h7: begin
+                        alu_op_o <= ALU_AND;
                     end
 
                     // SHIFT LEFT LOGICAL I
                     3'h1: begin
                         case(funct7)
-                            7'h0: begin
+                            7'h0:    begin
+                                alu_op_o <= ALU_AND;
                             end
-
                             default: begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
                             end
                         endcase
                     end
@@ -183,70 +219,98 @@ module decoder_riscv
                     3'h5: begin
                         case(funct7)
                             // SHIFT RIGHT LOGICAL I
-                            7'h0: begin
+                            7'h0:    begin
+                                alu_op_o <= ALU_SRL;
                             end
                             // SHIFT RIGHT ARITHMETIC I
-                            7'h20: begin
+                            7'h20:   begin
+                                alu_op_o <= ALU_SRA;
                             end
                             default: begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
                             end
                         endcase
                     end
 
                     // SET LESS THEN I (rs1 < imm)
                     3'h2: begin
+                        alu_op_o <= ALU_SLTS;
                     end
 
                     // SET LESS THEN I UNSIGNED (rs1 < imm)
                     3'h3: begin
+                        alu_op_o <= ALU_SLTU;
                     end
                     default: begin
+                        illegal_instr_o <= 1'b1;
+                        gpr_we_o        <= 1'b0;
                     end
                 endcase
             end
 
             // LOAD OPERS
             {LOAD_OPCODE,     2'b11}: begin
+                wb_sel_o  <= WB_LSU_DATA;
+                mem_req_o <= 1'b1;
+
                 case(funct3)
                     // LOAD BYTE
                     3'h0: begin
+                        mem_size_o <= LDST_B;
                     end
 
                     // LOAD HALF
                     3'h1: begin
+                        mem_size_o <= LDST_H;
                     end
 
                     // LOAD WORD
                     3'h2: begin
+                        mem_size_o <= LDST_W;
                     end
 
                     // LOAD BYTE INSIGNED
                     3'h4: begin
+                        mem_size_o <= LDST_BU;
                     end
 
                     // LOAD HALF INSIGNED
                     3'h5: begin
+                        mem_size_o <= LDST_HU;
                     end
                     default: begin
+                        illegal_instr_o <= 1'b1;
+                        gpr_we_o        <= 1'b0;
+                        mem_req_o       <= 1'b0;
                     end
                 endcase
             end
 
             // STORE OPERS
             {STORE_OPCODE,    2'b11}: begin
+                gpr_we_o  <= 1'b0;
+                mem_req_o <= 1'b1;
+                mem_we_o  <= 1'b1;
+                b_sel_o   <= OP_B_IMM_S;
                 case(funct3)
-                    //STORE BYTE
+                    // STORE BYTE
                     3'h0: begin
+                        mem_size_o <= LDST_B;
                     end
 
-                    // LOAD HALF
+                    // STORE HALF
                     3'h1: begin
+                        mem_size_o <= LDST_H;
                     end
 
-                    // LOAD WORD
+                    // STORE WORD
                     3'h2: begin
+                        mem_size_o <= LDST_W;
                     end
                     default: begin
+                        mem_req_o <= 1'b0;
+                        mem_we_o  <= 1'b0;
                     end
                 endcase
             end
@@ -320,17 +384,17 @@ module decoder_riscv
                 endcase
             end
 
-            // CALL/BREAK OPERS
+            // CALL/BREAK OPERS (csr = csr_op(rs1); rd = csr)
             {SYSTEM_OPCODE,   2'b11}: begin
                 case(funct3)
                     3'h0: begin
                         case(funct7)
                             // CALL
-                            7'h0: begin
+                            7'h0:    begin
                             end
 
                             // BREAK
-                            7'h1: begin
+                            7'h1:    begin
                             end
                             default: begin
                             end
