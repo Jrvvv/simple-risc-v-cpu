@@ -56,7 +56,7 @@ module decoder_riscv
         case(opcode)
             // REG-REG OPERS
             {OP_OPCODE,       2'b11}: begin
-                b_sel_o     <= OP_B_RS2;
+                b_sel_o <= OP_B_RS2;
 
                 case(funct3)
                     // ADD and SUB
@@ -281,8 +281,8 @@ module decoder_riscv
                     end
                     default: begin
                         illegal_instr_o <= 1'b1;
-                        gpr_we_o        <= 1'b0;
                         mem_req_o       <= 1'b0;
+                        gpr_we_o        <= 1'b0;
                     end
                 endcase
             end
@@ -309,83 +309,106 @@ module decoder_riscv
                         mem_size_o <= LDST_W;
                     end
                     default: begin
-                        mem_req_o <= 1'b0;
-                        mem_we_o  <= 1'b0;
+                        illegal_instr_o <= 1'b1;
+                        mem_req_o       <= 1'b0;
+                        mem_we_o        <= 1'b0;
                     end
                 endcase
             end
 
             // BRANCH OPERS
             {BRANCH_OPCODE,   2'b11}: begin
+                b_sel_o     <= OP_B_RS2;
+                gpr_we_o    <= 1'b0;
+                branch_o    <= 1'b1;
+
                 case(funct3)
                     // IF EQUAL (rs1 == rs2) pc += imm
                     3'h0: begin
+                        alu_op_o <= ALU_EQ;
                     end
 
                     // IF NOT EQUAL (rs1 != rs2) pc += imm
                     3'h1: begin
+                        alu_op_o <= ALU_NE;
                     end
 
                     // IF LESS THEN (rs1 < rs2) pc += imm
                     3'h4: begin
+                        alu_op_o <= ALU_LTS;
                     end
 
                     // IF GREATER OR EQ (rs1 >= rs2) pc += imm
                     3'h5: begin
+                        alu_op_o <= ALU_GES;
                     end
 
                     // IF LESS THEN UNSIGNED (rs1 < rs2) pc += imm
                     3'h6: begin
+                        alu_op_o <= ALU_LTU;
                     end
 
                     // IF GREATER OR EQ UNSIGNED (rs1 >= rs2) pc += imm
                     3'h7: begin
+                        alu_op_o <= ALU_LTU;
                     end
 
                     default: begin
+                        illegal_instr_o <= 1'b1;
+                        branch_o    <= 1'b0;
                     end
                 endcase
             end
 
             // JAL OPER (rd = pc + 4, pc += imm)
             {JAL_OPCODE,      2'b11}: begin
-
+                gpr_we_o    <= 1'b0;
+                jal_o       <= 1'b1;
             end
 
             // JALR OPER (rd = pc + 4, pc = rs1 + imm)
             {JALR_OPCODE,     2'b11}: begin
+                gpr_we_o    <= 1'b0;
                 case(funct3)
                     3'h0: begin
+                        jalr_o       <= 1'b1;
                     end
-
                     default: begin
+                        illegal_instr_o <= 1'b1;
                     end
                 endcase
             end
 
             // LOAD UPPER IMM OPER (rd = imm << 12)
             {LUI_OPCODE,      2'b11}: begin
-            
+                a_sel_o <= OP_A_ZERO;
+                b_sel_o <= OP_B_IMM_U;
             end
 
             // ADD UPPER IMM TO PC OPER (rd = pc + (imm << 12))
             {AUIPC_OPCODE,    2'b11}: begin
-            
+                a_sel_o <= OP_A_CURR_PC;
+                b_sel_o <= OP_B_IMM_U;
             end
 
             // FENCE OPER (in current cpu ~ nop oper)
             {MISC_MEM_OPCODE, 2'b11}: begin
+                gpr_we_o <= 1'b0;
                 case(funct3)
-                    3'h0: begin
-                    end
+                    3'h0: begin end
 
                     default: begin
+                        illegal_instr_o <= 1'b1;
                     end
                 endcase
             end
 
             // CALL/BREAK OPERS (csr = csr_op(rs1); rd = csr)
             {SYSTEM_OPCODE,   2'b11}: begin
+                illegal_instr_o <= 1'b1;
+                gpr_we_o        <= 1'b1;
+                wb_sel_o        <= WB_CSR_DATA;
+                csr_we_o        <= 1'b1;
                 case(funct3)
                     3'h0: begin
                         case(funct7)
@@ -397,11 +420,15 @@ module decoder_riscv
                             7'h1:    begin
                             end
                             default: begin
+                                gpr_we_o <= 1'b0;
+                                csr_we_o <= 1'b0;
                             end
                         endcase
                     end
 
                     default: begin
+                        gpr_we_o <= 1'b0;
+                        csr_we_o <= 1'b0;
                     end
                 endcase
             end
