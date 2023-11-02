@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/26/2023 11:03:34 AM
-// Design Name: 
-// Module Name: decoder_riscv
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module decoder_riscv
 (
@@ -37,7 +17,7 @@ module decoder_riscv
     output logic        branch_o,
     output logic        jal_o,
     output logic        jalr_o,
-    output logic        mret_o      
+    output logic        mret_o
     
 );
 
@@ -52,7 +32,7 @@ module decoder_riscv
     assign funct7 = fetched_instr_i[31:25];
     
     always_comb begin
-    // output values by-default (not case's default!!)
+        // output values by-default (not case's default!!)
         a_sel_o         <= OP_A_RS1;
         b_sel_o         <= OP_B_IMM_I;
         alu_op_o        <= OP_OPCODE;
@@ -74,72 +54,121 @@ module decoder_riscv
         mret_o          <= 1'b0;
 
         case(opcode)
+            // REG-REG OPERS
             {OP_OPCODE,       2'b11}: begin
                 case(funct3)
+                    // ADD and SUB
                     3'h0: begin
                         case(funct7)
+                            // ADD
                             7'h0 :   begin
                             end
-
+                            // SUB
                             7'h20:   begin
                             end
-
                             default: begin
                             end
                         endcase 
                     end
 
+                    // XOR
                     3'h4: begin
+                        case(funct7)
+                            7'h0 :   begin
+                            end
+                            default: begin
+                            end
+                        endcase 
                     end
 
+                    // OR
                     3'h6: begin
+                        case(funct7)
+                            7'h0 :   begin
+                            end
+                            default: begin
+                            end
+                        endcase 
                     end
 
+                    // AND
                     3'h7: begin
+                        case(funct7)
+                            7'h0 :   begin
+                            end
+                            default: begin
+                            end
+                        endcase 
                     end
 
+                    // SHIFT LEFT LOGICAL
                     3'h1: begin
+                        case(funct7)
+                            7'h0 :   begin
+                            end
+                            default: begin
+                            end
+                        endcase 
                     end
 
-                    // 
+                    // SHIFT RIGHT LOGICAL/ARITHMETIC
                     3'h5: begin
+                        case(funct7)
+                            // SHIFT RIGHT LOGICAL
+                            7'h0 : begin
+                            end
+                            // SHIFT RIGHT ARITHMETIC
+                            7'h20: begin
+                            end
+                            default: begin
+                            end
+                        endcase
+                    end
+
+                    // SET LESS THEN (rs1 < rs2)
+                    3'h2: begin
                         case(funct7)
                             7'h0 : begin
                             end
-
-                            7'h20: begin
-                            end
-
                             default: begin
                             end
                         endcase
                     end
 
-                    3'h2: begin
-                    end
-
+                    // SET LESS THEN UNSIGNED (rs1 < rs2)
                     3'h3: begin
+                        case(funct7)
+                            7'h0 : begin
+                            end
+                            default: begin
+                            end
+                        endcase
                     end
-
                     default: begin
                     end
                 endcase
             end
 
+            // REG-IMM OPERS
             {OP_IMM_OPCODE,   2'b11}: begin
                 case(funct3)
+                    // ADD I
                     3'h0: begin
                     end
 
+                    // XOR I
                     3'h4: begin
                     end
 
+                    // OR I
                     3'h6: begin
                     end
 
+                    // AND I
                     3'h7: begin
                     end
 
+                    // SHIFT LEFT LOGICAL I
                     3'h1: begin
                         case(funct7)
                             7'h0: begin
@@ -150,86 +179,102 @@ module decoder_riscv
                         endcase
                     end
 
+                    // SHIFT RIGHT L/A I
                     3'h5: begin
                         case(funct7)
+                            // SHIFT RIGHT LOGICAL I
                             7'h0: begin
                             end
-
+                            // SHIFT RIGHT ARITHMETIC I
                             7'h20: begin
                             end
-
                             default: begin
                             end
                         endcase
                     end
 
+                    // SET LESS THEN I (rs1 < imm)
                     3'h2: begin
                     end
 
+                    // SET LESS THEN I UNSIGNED (rs1 < imm)
                     3'h3: begin
                     end
-
                     default: begin
                     end
                 endcase
             end
 
-
+            // LOAD OPERS
             {LOAD_OPCODE,     2'b11}: begin
                 case(funct3)
+                    // LOAD BYTE
                     3'h0: begin
                     end
 
+                    // LOAD HALF
                     3'h1: begin
                     end
 
+                    // LOAD WORD
                     3'h2: begin
                     end
 
+                    // LOAD BYTE INSIGNED
                     3'h4: begin
                     end
 
+                    // LOAD HALF INSIGNED
                     3'h5: begin
                     end
-
                     default: begin
                     end
                 endcase
             end
 
+            // STORE OPERS
             {STORE_OPCODE,    2'b11}: begin
                 case(funct3)
+                    //STORE BYTE
                     3'h0: begin
                     end
 
+                    // LOAD HALF
                     3'h1: begin
                     end
 
+                    // LOAD WORD
                     3'h2: begin
                     end
-
                     default: begin
                     end
                 endcase
             end
 
+            // BRANCH OPERS
             {BRANCH_OPCODE,   2'b11}: begin
                 case(funct3)
+                    // IF EQUAL (rs1 == rs2) pc += imm
                     3'h0: begin
                     end
 
+                    // IF NOT EQUAL (rs1 != rs2) pc += imm
                     3'h1: begin
                     end
 
+                    // IF LESS THEN (rs1 < rs2) pc += imm
                     3'h4: begin
                     end
 
+                    // IF GREATER OR EQ (rs1 >= rs2) pc += imm
                     3'h5: begin
                     end
 
+                    // IF LESS THEN UNSIGNED (rs1 < rs2) pc += imm
                     3'h6: begin
                     end
 
+                    // IF GREATER OR EQ UNSIGNED (rs1 >= rs2) pc += imm
                     3'h7: begin
                     end
 
@@ -238,10 +283,12 @@ module decoder_riscv
                 endcase
             end
 
+            // JAL OPER (rd = pc + 4, pc += imm)
             {JAL_OPCODE,      2'b11}: begin
 
             end
 
+            // JALR OPER (rd = pc + 4, pc = rs1 + imm)
             {JALR_OPCODE,     2'b11}: begin
                 case(funct3)
                     3'h0: begin
@@ -252,24 +299,50 @@ module decoder_riscv
                 endcase
             end
 
+            // LOAD UPPER IMM OPER (rd = imm << 12)
             {LUI_OPCODE,      2'b11}: begin
             
             end
 
+            // ADD UPPER IMM TO PC OPER (rd = pc + (imm << 12))
             {AUIPC_OPCODE,    2'b11}: begin
             
             end
 
+            // FENCE OPER (in current cpu ~ nop oper)
             {MISC_MEM_OPCODE, 2'b11}: begin
-            
+                case(funct3)
+                    3'h0: begin
+                    end
+
+                    default: begin
+                    end
+                endcase
             end
 
+            // CALL/BREAK OPERS
             {SYSTEM_OPCODE,   2'b11}: begin
-            
+                case(funct3)
+                    3'h0: begin
+                        case(funct7)
+                            // CALL
+                            7'h0: begin
+                            end
+
+                            // BREAK
+                            7'h1: begin
+                            end
+                            default: begin
+                            end
+                        endcase
+                    end
+
+                    default: begin
+                    end
+                endcase
             end
 
             default: begin
-            
             end
         endcase
     
