@@ -22,14 +22,14 @@ module decoder_riscv
 );
 
     import riscv_pkg::*;
-    
+
     logic [6:0] opcode;
-    logic [2:0] funct3;
-    logic [6:0] funct7;
-    
+    logic [2:0] func3;
+    logic [6:0] func7;
+
     assign opcode = fetched_instr_i[6 : 0];
-    assign funct3 = fetched_instr_i[14:12];
-    assign funct7 = fetched_instr_i[31:25];
+    assign func3  = fetched_instr_i[14:12];
+    assign func7  = fetched_instr_i[31:25];
     
     always_comb begin
         // output values by-default (not case's default!!)
@@ -58,18 +58,15 @@ module decoder_riscv
             {OP_OPCODE,       2'b11}: begin
                 b_sel_o <= OP_B_RS2;
 
-                case(funct3)
+                case(func3)
                     // ADD and SUB
                     3'h0: begin
-                        case(funct7)
+                        case(func7)
                             // ADD
-                            7'h0:    begin
-                                alu_op_o <= ALU_ADD;
-                            end
+                            7'h0:   alu_op_o <= ALU_ADD;
                             // SUB
-                            7'h20:   begin
-                                alu_op_o <= ALU_SUB;
-                            end
+                            7'h20:  alu_op_o <= ALU_SUB;
+
                             default: begin
                                 illegal_instr_o <= 1'b1;
                                 gpr_we_o        <= 1'b0;
@@ -79,10 +76,9 @@ module decoder_riscv
 
                     // XOR
                     3'h4: begin
-                        case(funct7)
-                            7'h0:    begin
-                                alu_op_o <= ALU_XOR;
-                            end
+                        case(func7)
+                            7'h0: alu_op_o <= ALU_XOR;
+
                             default: begin
                                 illegal_instr_o <= 1'b1;
                                 gpr_we_o        <= 1'b0;
@@ -92,10 +88,9 @@ module decoder_riscv
 
                     // OR
                     3'h6: begin
-                        case(funct7)
-                            7'h0:    begin
-                                alu_op_o <= ALU_OR;
-                            end
+                        case(func7)
+                            7'h0: alu_op_o <= ALU_OR;
+
                             default: begin
                                 illegal_instr_o <= 1'b1;
                                 gpr_we_o        <= 1'b0;
@@ -105,10 +100,9 @@ module decoder_riscv
 
                     // AND
                     3'h7: begin
-                        case(funct7)
-                            7'h0:    begin
-                                alu_op_o <= ALU_AND;
-                            end
+                        case(func7)
+                            7'h0: alu_op_o <= ALU_AND;
+
                             default: begin
                                 illegal_instr_o <= 1'b1;
                                 gpr_we_o        <= 1'b0;
@@ -118,10 +112,9 @@ module decoder_riscv
 
                     // SHIFT LEFT LOGICAL
                     3'h1: begin
-                        case(funct7)
-                            7'h0:    begin
-                                alu_op_o <= ALU_SLL;
-                            end
+                        case(func7)
+                            7'h0: alu_op_o <= ALU_SLL;
+
                             default: begin
                                 illegal_instr_o <= 1'b1;
                                 gpr_we_o        <= 1'b0;
@@ -131,15 +124,12 @@ module decoder_riscv
 
                     // SHIFT RIGHT LOGICAL/ARITHMETIC
                     3'h5: begin
-                        case(funct7)
+                        case(func7)
                             // SHIFT RIGHT LOGICAL
-                            7'h0:   begin
-                                alu_op_o <= ALU_SRL;
-                            end
+                            7'h0:  alu_op_o <= ALU_SRL;
                             // SHIFT RIGHT ARITHMETIC
-                            7'h20:   begin
-                                alu_op_o <= ALU_SRA;
-                            end
+                            7'h20: alu_op_o <= ALU_SRA;
+
                             default: begin
                                 illegal_instr_o <= 1'b1;
                                 gpr_we_o        <= 1'b0;
@@ -149,10 +139,9 @@ module decoder_riscv
 
                     // SET LESS THEN (rs1 < rs2)
                     3'h2: begin
-                        case(funct7)
-                            7'h0:    begin
-                                alu_op_o <= ALU_SLTS;
-                            end
+                        case(func7)
+                            7'h0: alu_op_o <= ALU_SLTS;
+
                             default: begin
                                 illegal_instr_o <= 1'b1;
                                 gpr_we_o        <= 1'b0;
@@ -162,10 +151,9 @@ module decoder_riscv
 
                     // SET LESS THEN UNSIGNED (rs1 < rs2)
                     3'h3: begin
-                        case(funct7)
-                            7'h0:    begin
-                                alu_op_o <= ALU_SLTU;
-                            end
+                        case(func7)
+                            7'h0: alu_op_o <= ALU_SLTU;
+
                             default: begin
                                 illegal_instr_o <= 1'b1;
                                 gpr_we_o        <= 1'b0;
@@ -181,33 +169,21 @@ module decoder_riscv
 
             // REG-IMM OPERS
             {OP_IMM_OPCODE,   2'b11}: begin
-                case(funct3)
+                case(func3)
                     // ADD I
-                    3'h0: begin
-                        alu_op_o <= ALU_ADD;
-                    end
-
+                    3'h0: alu_op_o <= ALU_ADD;
                     // XOR I
-                    3'h4: begin
-                        alu_op_o <= ALU_XOR;
-                    end
-
+                    3'h4: alu_op_o <= ALU_XOR;
                     // OR I
-                    3'h6: begin
-                        alu_op_o <= ALU_OR;
-                    end
-
+                    3'h6: alu_op_o <= ALU_OR;
                     // AND I
-                    3'h7: begin
-                        alu_op_o <= ALU_AND;
-                    end
+                    3'h7: alu_op_o <= ALU_AND;
 
                     // SHIFT LEFT LOGICAL I
                     3'h1: begin
-                        case(funct7)
-                            7'h0:    begin
-                                alu_op_o <= ALU_AND;
-                            end
+                        case(func7)
+                            7'h0: alu_op_o <= ALU_SLL;
+
                             default: begin
                                 illegal_instr_o <= 1'b1;
                                 gpr_we_o        <= 1'b0;
@@ -217,15 +193,12 @@ module decoder_riscv
 
                     // SHIFT RIGHT L/A I
                     3'h5: begin
-                        case(funct7)
+                        case(func7)
                             // SHIFT RIGHT LOGICAL I
-                            7'h0:    begin
-                                alu_op_o <= ALU_SRL;
-                            end
+                            7'h0:  alu_op_o <= ALU_SRL;
                             // SHIFT RIGHT ARITHMETIC I
-                            7'h20:   begin
-                                alu_op_o <= ALU_SRA;
-                            end
+                            7'h20: alu_op_o <= ALU_SRA;
+
                             default: begin
                                 illegal_instr_o <= 1'b1;
                                 gpr_we_o        <= 1'b0;
@@ -234,14 +207,10 @@ module decoder_riscv
                     end
 
                     // SET LESS THEN I (rs1 < imm)
-                    3'h2: begin
-                        alu_op_o <= ALU_SLTS;
-                    end
-
+                    3'h2: alu_op_o <= ALU_SLTS;
                     // SET LESS THEN I UNSIGNED (rs1 < imm)
-                    3'h3: begin
-                        alu_op_o <= ALU_SLTU;
-                    end
+                    3'h3: alu_op_o <= ALU_SLTU;
+
                     default: begin
                         illegal_instr_o <= 1'b1;
                         gpr_we_o        <= 1'b0;
@@ -254,31 +223,18 @@ module decoder_riscv
                 wb_sel_o  <= WB_LSU_DATA;
                 mem_req_o <= 1'b1;
 
-                case(funct3)
+                case(func3)
                     // LOAD BYTE
-                    3'h0: begin
-                        mem_size_o <= LDST_B;
-                    end
-
+                    3'h0: mem_size_o <= LDST_B;
                     // LOAD HALF
-                    3'h1: begin
-                        mem_size_o <= LDST_H;
-                    end
-
+                    3'h1: mem_size_o <= LDST_H;
                     // LOAD WORD
-                    3'h2: begin
-                        mem_size_o <= LDST_W;
-                    end
-
+                    3'h2: mem_size_o <= LDST_W;
                     // LOAD BYTE INSIGNED
-                    3'h4: begin
-                        mem_size_o <= LDST_BU;
-                    end
-
+                    3'h4: mem_size_o <= LDST_BU;
                     // LOAD HALF INSIGNED
-                    3'h5: begin
-                        mem_size_o <= LDST_HU;
-                    end
+                    3'h5: mem_size_o <= LDST_HU;
+
                     default: begin
                         illegal_instr_o <= 1'b1;
                         mem_req_o       <= 1'b0;
@@ -293,21 +249,14 @@ module decoder_riscv
                 mem_req_o <= 1'b1;
                 mem_we_o  <= 1'b1;
                 b_sel_o   <= OP_B_IMM_S;
-                case(funct3)
+                case(func3)
                     // STORE BYTE
-                    3'h0: begin
-                        mem_size_o <= LDST_B;
-                    end
-
+                    3'h0: mem_size_o <= LDST_B;
                     // STORE HALF
-                    3'h1: begin
-                        mem_size_o <= LDST_H;
-                    end
-
+                    3'h1: mem_size_o <= LDST_H;
                     // STORE WORD
-                    3'h2: begin
-                        mem_size_o <= LDST_W;
-                    end
+                    3'h2: mem_size_o <= LDST_W;
+
                     default: begin
                         illegal_instr_o <= 1'b1;
                         mem_req_o       <= 1'b0;
@@ -322,36 +271,19 @@ module decoder_riscv
                 gpr_we_o    <= 1'b0;
                 branch_o    <= 1'b1;
 
-                case(funct3)
+                case(func3)
                     // IF EQUAL (rs1 == rs2) pc += imm
-                    3'h0: begin
-                        alu_op_o <= ALU_EQ;
-                    end
-
+                    3'h0: alu_op_o <= ALU_EQ;
                     // IF NOT EQUAL (rs1 != rs2) pc += imm
-                    3'h1: begin
-                        alu_op_o <= ALU_NE;
-                    end
-
+                    3'h1: alu_op_o <= ALU_NE;
                     // IF LESS THEN (rs1 < rs2) pc += imm
-                    3'h4: begin
-                        alu_op_o <= ALU_LTS;
-                    end
-
+                    3'h4: alu_op_o <= ALU_LTS;
                     // IF GREATER OR EQ (rs1 >= rs2) pc += imm
-                    3'h5: begin
-                        alu_op_o <= ALU_GES;
-                    end
-
+                    3'h5: alu_op_o <= ALU_GES;
                     // IF LESS THEN UNSIGNED (rs1 < rs2) pc += imm
-                    3'h6: begin
-                        alu_op_o <= ALU_LTU;
-                    end
-
+                    3'h6: alu_op_o <= ALU_LTU;
                     // IF GREATER OR EQ UNSIGNED (rs1 >= rs2) pc += imm
-                    3'h7: begin
-                        alu_op_o <= ALU_LTU;
-                    end
+                    3'h7: alu_op_o <= ALU_GEU;
 
                     default: begin
                         illegal_instr_o <= 1'b1;
@@ -362,19 +294,21 @@ module decoder_riscv
 
             // JAL OPER (rd = pc + 4, pc += imm)
             {JAL_OPCODE,      2'b11}: begin
-                gpr_we_o    <= 1'b0;
+                a_sel_o     <= OP_A_CURR_PC;
+                b_sel_o     <= OP_B_INCR;
                 jal_o       <= 1'b1;
             end
 
             // JALR OPER (rd = pc + 4, pc = rs1 + imm)
             {JALR_OPCODE,     2'b11}: begin
-                gpr_we_o    <= 1'b0;
-                case(funct3)
-                    3'h0: begin
-                        jalr_o       <= 1'b1;
-                    end
+                a_sel_o     <= OP_A_CURR_PC;
+                b_sel_o     <= OP_B_INCR;
+                case(func3)
+                    3'h0: jalr_o       <= 1'b1;
+
                     default: begin
                         illegal_instr_o <= 1'b1;
+                        gpr_we_o        <= 1'b0;
                     end
                 endcase
             end
@@ -394,9 +328,8 @@ module decoder_riscv
             // FENCE OPER (in current cpu ~ nop oper)
             {MISC_MEM_OPCODE, 2'b11}: begin
                 gpr_we_o <= 1'b0;
-                case(funct3)
+                case(func3)
                     3'h0: begin end
-
                     default: begin
                         illegal_instr_o <= 1'b1;
                     end
@@ -405,35 +338,56 @@ module decoder_riscv
 
             // CALL/BREAK OPERS (csr = csr_op(rs1); rd = csr)
             {SYSTEM_OPCODE,   2'b11}: begin
-                illegal_instr_o <= 1'b1;
+                csr_we_o        <= 1'b1;
                 gpr_we_o        <= 1'b1;
                 wb_sel_o        <= WB_CSR_DATA;
-                csr_we_o        <= 1'b1;
-                case(funct3)
+                case(func3)
                     3'h0: begin
-                        case(funct7)
+                        case(func7)
                             // CALL
                             7'h0:    begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
+                                csr_we_o        <= 1'b0;
                             end
-
                             // BREAK
                             7'h1:    begin
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
+                                csr_we_o        <= 1'b0;
+                            end
+                            // MRET
+                            7'h18:    begin
+                                gpr_we_o        <= 1'b0;
+                                csr_we_o        <= 1'b0;
+                                mret_o          <= 1'b1;
                             end
                             default: begin
-                                gpr_we_o <= 1'b0;
-                                csr_we_o <= 1'b0;
+                                illegal_instr_o <= 1'b1;
+                                gpr_we_o        <= 1'b0;
+                                csr_we_o        <= 1'b0;
                             end
                         endcase
                     end
 
+                    CSR_RW:  csr_op_o <= CSR_RW;
+                    CSR_RS:  csr_op_o <= CSR_RS;
+                    CSR_RC:  csr_op_o <= CSR_RC;
+                    CSR_RWI: csr_op_o <= CSR_RWI;
+                    CSR_RSI: csr_op_o <= CSR_RSI;
+                    CSR_RCI: csr_op_o <= CSR_RCI;
+
                     default: begin
-                        gpr_we_o <= 1'b0;
-                        csr_we_o <= 1'b0;
+                        illegal_instr_o <= 1'b1;
+                        gpr_we_o        <= 1'b0;
+                        csr_we_o        <= 1'b0;
                     end
                 endcase
             end
 
             default: begin
+                illegal_instr_o <= 1'b1;
+                gpr_we_o        <= 1'b0;
             end
         endcase
     
