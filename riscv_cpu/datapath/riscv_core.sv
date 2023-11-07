@@ -84,30 +84,30 @@ module riscv_core
     // decoder module
     decoder_riscv decoder_dev
     (
-        fetched_instr_i (instr_i),
-        a_sel_o         (a_sel),
-        b_sel_o         (b_sel),
-        alu_op_o        (alu_op),
-        // csr_op_o        (),
-        // csr_we_o        (),
-        mem_req_o       (mem_req_o),
-        mem_we_o        (mem_we_o),
-        mem_size_o      (mem_size_o),
-        gpr_we_o        (gpr_we),
-        wb_sel_o        (wb_sel),
-        // illegal_instr_o (),
-        // mret_o          (),
-        branch_o        (b),
-        jal_o           (jal),
-        jalr_o          (jalr)
+        .fetched_instr_i (instr_i),
+        .a_sel_o         (a_sel),
+        .b_sel_o         (b_sel),
+        .alu_op_o        (alu_op),
+        // .csr_op_o        (),
+        // .csr_we_o        (),
+        .mem_req_o       (mem_req_o),
+        .mem_we_o        (mem_we_o),
+        .mem_size_o      (mem_size_o),
+        .gpr_we_o        (gpr_we),
+        .wb_sel_o        (wb_sel),
+        // .illegal_instr_o (),
+        // .mret_o          (),
+        .branch_o        (b),
+        .jal_o           (jal),
+        .jalr_o          (jalr)
     );
 
     // sign extension blocks
-    assign imm_I        = {{20{instr_i[31]}}, instr_i[31:20]                                        };
-    assign imm_U        = { instr_i[31:12],   12'h000                                                 };
-    assign imm_S        = {{20{instr_i[31]}}, instr_i[31:25],  instr_i[11:7]                        };
-    assign imm_B        = {{20{instr_i[31]}}, instr_i[7],      instr_i[30:25],  instr_i[11:8], 1'b0 };
-    // assign imm_J        = 
+    assign imm_I        = {{21{instr_i[31]}}, instr_i[30:20]                                      };
+    assign imm_U        = { instr_i[31:12],   12'h000                                             };
+    assign imm_S        = {{21{instr_i[31]}}, instr_i[30:25], instr_i[11:7]                       };
+    assign imm_B        = {{20{instr_i[31]}}, instr_i[7],     instr_i[30:25], instr_i[11:8],  1'b0};
+    assign imm_J        = {{12{instr_i[31]}}, instr_i[19:12], instr_i[20],    instr_i[30:21], 1'b0};
 
     assign mem_wd_o     = RD2;
     assign mem_addr_o   = alu_res;
@@ -117,15 +117,38 @@ module riscv_core
     assign j_or_b       = ( b                )  ? imm_B                     : imm_J;
     assign jb_or_4      = ( (flag & b) | jal )  ? j_or_b                    : 32'd4;
 
-    assign to_PC        = ( jalr             )  ? {RD1_I_add[31:1], 1'b0}   : addr_jb_res;
-
     assign addr_jb_res  = PC  + jb_or_4;
     assign RD1_I_add    = RD1 + imm_I;
 
-//    always_comb begin
-//        case()
-//    end
+    assign to_PC        = ( jalr             )  ? {RD1_I_add[31:1], 1'b0}   : addr_jb_res;
 
-    // memory modules
+
+    always_comb begin
+        case(a_sel)
+            2'd0    : oper_a <= RD1;
+            2'd1    : oper_a <= PC;
+            default : oper_a <= 32'd0;
+        endcase
+    end
+
+    always_comb begin
+        case(b_sel)
+            2'd0    : oper_b <= RD2;
+            2'd1    : oper_b <= imm_I;
+            2'd2    : oper_b <= imm_U;
+            2'd3    : oper_b <= imm_S;
+            default : oper_b <= 32'd4;
+        endcase
+    end
+
+    // IS RESET BY POS OR NEG??
+    always_ff @(posedge clk_i or posedge rst_i) begin
+        if (rst_i)
+            PC <= 32'b0;
+        else if (stall_i)
+            PC <= PC;
+        else
+            PC <= to_PC;
+    end
 
 endmodule
