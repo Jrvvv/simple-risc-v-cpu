@@ -103,10 +103,10 @@ module riscv_core
     );
 
     // sign extension blocks
-    assign imm_I        = {20{instr_i[31]}, instr_i[31:20]                                      };
-    assign imm_U        = {instr_i[31:12],  12'h000                                             };
-    assign imm_S        = {20{instr_i[31]}, instr_i[31:25],  instr_i[11:7]                      };
-    assign imm_B        = {20{instr_i[31]}, instr_i[7],      instr[30:25],  instr_i[11:8], 1'b0 };
+    assign imm_I        = {{20{instr_i[31]}}, instr_i[31:20]                                        };
+    assign imm_U        = { instr_i[31:12],   12'h000                                                 };
+    assign imm_S        = {{20{instr_i[31]}}, instr_i[31:25],  instr_i[11:7]                        };
+    assign imm_B        = {{20{instr_i[31]}}, instr_i[7],      instr_i[30:25],  instr_i[11:8], 1'b0 };
     // assign imm_J        = 
 
     assign mem_wd_o     = RD2;
@@ -122,9 +122,9 @@ module riscv_core
     assign addr_jb_res  = PC  + jb_or_4;
     assign RD1_I_add    = RD1 + imm_I;
 
-    always_comb begin
-        case()
-    end
+//    always_comb begin
+//        case()
+//    end
 
     // memory modules
 
