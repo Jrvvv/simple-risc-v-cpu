@@ -29,11 +29,15 @@ module instr_mem
     logic [31:0] RAM [1023:0];
     
     initial begin
+        // for cybercobra
 //        $readmemh("program.txt", RAM);
 //        $readmemh("example.txt", RAM);
 //        $readmemh("demo.txt", RAM);
 //        $readmemh("my_prog_converted.txt", RAM);
-        $readmemh("converted_looped.txt", RAM);
+//        $readmemh("converted_looped.txt", RAM);
+
+        // for risc-v core
+        $readmemh("program.txt", RAM);
 
 
     end

@@ -20,8 +20,8 @@ module riscv_core
 
     // decoder wires
     logic [4 :0] alu_op;
-    logic [2 :0] a_sel;
-    logic [1 :0] b_sel;
+    logic [1 :0] a_sel;
+    logic [2 :0] b_sel;
     logic        wb_sel;
     logic        jal;
     logic        jalr;
@@ -58,7 +58,7 @@ module riscv_core
     logic [31:0] imm_J;
 
 
-    // memory modules
+    // RF memory module
     rf_riscv rf_dev
     (
         .clk_i            (clk_i),
@@ -70,7 +70,8 @@ module riscv_core
         .read_data1_o     (RD1),
         .read_data2_o     (RD2)
     );
-    
+
+    // alu module
     alu_riscv alu_dev
     (
         .alu_op_i (alu_op),
@@ -122,6 +123,7 @@ module riscv_core
 
     assign to_PC        = ( jalr             )  ? {RD1_I_add[31:1], 1'b0}   : addr_jb_res;
 
+    assign WE = gpr_we & (~stall_i);
 
     always_comb begin
         case(a_sel)
