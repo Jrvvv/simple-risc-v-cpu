@@ -37,7 +37,8 @@ module instr_mem
 //        $readmemh("converted_looped.txt", RAM);
 
         // for risc-v core
-        $readmemh("program.txt", RAM);
+//        $readmemh("program.txt", RAM);
+        $readmemh("my_riscv_prog_bin.txt", RAM);
 
 
     end
