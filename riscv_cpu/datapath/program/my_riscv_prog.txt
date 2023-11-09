@@ -9,6 +9,7 @@ or   x5,  x4,  x3        # x5    = unsig_swap            = x4 | x3
 lui  x2,       0xffff0   # x2    = mask                  = ~(0xff_ff_f0_00)
 and  x1,  x1,  x2        # x1    = res                   = data_in & mask
 or   x1,  x1,  x5        # x1    = res                   = res | unsig_swap
+addi x1,  x1,  0
 jal  x17,      rep
 
 rep:
