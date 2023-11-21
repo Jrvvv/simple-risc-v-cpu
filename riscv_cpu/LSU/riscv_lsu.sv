@@ -25,76 +25,105 @@ module riscv_lsu
     import riscv_pkg::*;
 
     logic stall_reg;
-    
-    // wires
+
+    // control wires
     logic [1:0] byte_offset;
-    
+    logic       half_offset;
+
     // assignin wires
     assign byte_offset = core_addr_i[1:0];
-    
+    assign half_offset = core_addr_i[1];
+
     // stright from in to out
     assign mem_req_o    = core_req_i;
     assign mem_we_o     = core_we_i; 
     assign core_addr_o  = mem_addr_o;
-    
+
     // setting stall out value
     assign core_stall_o = core_req_i & ~(mem_ready_i & stall_reg);
     // setting stall reg value
     always_ff@(posedge clk_i)
         stall_reg <= core_stall_o;
-  
-  // LDST_B          = 3'b000; Знаковое 8-битное значение
-  // LDST_H          = 3'b001; Знаковое 16-битное значение
-  // LDST_W          = 3'b010; 32-битное значение
-  // LDST_BU         = 3'b100; Беззнаковое 8-битное значение
-  // LDST_HU         = 3'b101; Беззнаковое 16-битное значение
-    
+
     // setting mem_be_o value
     always_comb begin
         case (core_size_i)
             LDST_B: begin
+                mem_be_o <= (4'b0001 << byte_offset);
             end
             
             LDST_H: begin
+                mem_be_o <= (half_offset) ? 4'b1100 : 4'b0011;
             end
             
             LDST_W: begin
+                mem_be_o <= 4'b1111;
             end
             
             default: mem_be_o <= mem_be_o;
         endcase
         
     end
-    
+
     // setting core_rd_o value
     always_comb begin
         case (core_size_i)
             LDST_B: begin
+                case (byte_offset)
+                    2'b00: core_rd_o <= {{24{mem_rd_i[7 ]}}, mem_rd_i[7 : 0]};
+                    2'b01: core_rd_o <= {{24{mem_rd_i[15]}}, mem_rd_i[15: 8]};
+                    2'b10: core_rd_o <= {{24{mem_rd_i[23]}}, mem_rd_i[23:16]};
+                    2'b11: core_rd_o <= {{24{mem_rd_i[31]}}, mem_rd_i[31:24]};
+                endcase
+            end
+
+            LDST_BU: begin
+                case (byte_offset)
+                    2'b00: core_rd_o <= {{24{1'b0}}, mem_rd_i[7 : 0]};
+                    2'b01: core_rd_o <= {{24{1'b0}}, mem_rd_i[15: 8]};
+                    2'b10: core_rd_o <= {{24{1'b0}}, mem_rd_i[23:16]};
+                    2'b11: core_rd_o <= {{24{1'b0}}, mem_rd_i[31:24]};
+                endcase
             end
             
             LDST_H: begin
+                case (half_offset)
+                    1'b0: core_rd_o <= {{16{mem_rd_i[15]}}, mem_rd_i[15: 0]};
+                    1'b1: core_rd_o <= {{16{mem_rd_i[31]}}, mem_rd_i[31:16]};
+                endcase
             end
-            
+
+            LDST_HU: begin
+                case (half_offset)
+                    1'b0: core_rd_o <= {{16{1'b0}}, mem_rd_i[15: 0]};
+                    1'b1: core_rd_o <= {{16{1'b0}}, mem_rd_i[31:16]};
+                endcase
+            end
+
             LDST_W: begin
+                core_rd_o <= mem_rd_i;
             end
-            
-            default: mem_be_o <= mem_be_o;
+
+            default: core_rd_o <= core_rd_o;
         endcase
     end
-    
+
     // setting mem_wd_o value
     always_comb begin
         case (core_size_i)
             LDST_B: begin
+                mem_wd_o <= {4{core_wd_i[7:0]}};
             end
             
             LDST_H: begin
+                mem_wd_o <= {2{core_wd_i[15:0]}};
             end
             
             LDST_W: begin
+                mem_wd_o <= core_wd_i;
             end
             
-            default: mem_be_o <= mem_be_o;
+            default: mem_wd_o <= mem_wd_o;
         endcase
     end
 
