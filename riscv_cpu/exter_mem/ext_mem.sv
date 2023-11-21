@@ -9,11 +9,13 @@ module ext_mem
     input   logic [31:0] addr_i,
     input   logic [31:0] write_data_i,
     output  logic [31:0] read_data_o,
-    output  logic        ready_o       
+    output  logic        ready_o
 );
 
     logic [31:0] RAM [4095:0];
     logic [31:0] current_data;
+    
+    assign ready_o = 1'b1;
     
     // reading
     always_ff @(posedge clk_i) begin
@@ -26,24 +28,6 @@ module ext_mem
     // writing
     always_ff @(posedge clk_i) begin
         if (mem_req_i && write_enable_i) begin
-            // case (byte_enable_i)
-            //     4'b0001: RAM[addr_i[31:2]] <= {current_data[31: 8], write_data_i[7:  0]                                           };
-            //     4'b0010: RAM[addr_i[31:2]] <= {current_data[31:16], write_data_i[15: 8], current_data[7:  0]                      };
-            //     4'b0011: RAM[addr_i[31:2]] <= {current_data[31:16], write_data_i[15: 0]                                           };
-            //     4'b0100: RAM[addr_i[31:2]] <= {current_data[31:24], write_data_i[23:16], current_data[15: 0]                      };
-            //     4'b0101: RAM[addr_i[31:2]] <= {current_data[31:24], write_data_i[23:16], current_data[15: 8], write_data_i[7  :0] };
-            //     4'b0110: RAM[addr_i[31:2]] <= {current_data[31:24], write_data_i[23: 8], current_data[7:  8]                      };
-            //     4'b0111: RAM[addr_i[31:2]] <= {current_data[31:24], write_data_i[23: 0]                                           };
-            //     4'b1000: RAM[addr_i[31:2]] <= {write_data_i[31:24], current_data[23: 0]                                           };
-            //     4'b1001: RAM[addr_i[31:2]] <= {write_data_i[31:24], current_data[23: 8], write_data_i[7:  0]                      };
-            //     4'b1010: RAM[addr_i[31:2]] <= {write_data_i[31:24], current_data[23:16], write_data_i[15: 8], current_data[7  :0] };
-            //     4'b1011: RAM[addr_i[31:2]] <= {write_data_i[31:24], current_data[23:16], write_data_i[15: 0]                      };
-            //     4'b1100: RAM[addr_i[31:2]] <= {write_data_i[31:16], current_data[15: 0]                                           };
-            //     4'b1101: RAM[addr_i[31:2]] <= {write_data_i[31:16], current_data[15: 8], write_data_i[7:  0]                      };
-            //     4'b1110: RAM[addr_i[31:2]] <= {write_data_i[31: 8], current_data[7:  0]                                           };
-            //     4'b1111: RAM[addr_i[31:2]] <= write_data_i[31:0];
-            //     default: RAM[addr_i[31:2]] <= current_data[31:0];
-            // endcase
 
             if (byte_enable_i[0])
                 RAM[addr_i[31:2]][7:  0] <=     write_data_i [7:  0];
@@ -68,16 +52,18 @@ module ext_mem
             RAM[addr_i[31:2]] <= RAM[addr_i[31:2]];
         end
     end
-    
+
     always_comb begin
-        if (!mem_req_i || write_enable_i)
+        if (!mem_req_i || write_enable_i) begin
             read_data_o = 32'hfa11_1eaf;
-        else if (mem_req_i && addr_i <= 32'd16383)
+        end else if (mem_req_i && addr_i <= 32'd16383) begin
             read_data_o = current_data;
-        else if (mem_req_i && addr_i > 32'd16383)
+        end else if (mem_req_i && addr_i > 32'd16383) begin
             read_data_o = 32'hdead_beef;
-        else
+        end else begin
+            // CHECK IF RIGHT!!
             read_data_o = read_data_o;
+        end
     end
 
 endmodule
