@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/10/2023 04:33:17 PM
-// Design Name: 
-// Module Name: instr_mem
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module instr_mem
 (
@@ -38,7 +18,10 @@ module instr_mem
 
         // for risc-v core
 //        $readmemh("program.txt", RAM);
-        $readmemh("my_riscv_prog_bin.txt", RAM);
+//        $readmemh("my_riscv_prog_bin.txt", RAM);
+        
+        // for testing LSU
+        $readmemh("ls_test_bin.txt", RAM);
 
 
     end
