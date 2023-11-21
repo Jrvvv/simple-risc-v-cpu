@@ -68,7 +68,7 @@ module riscv_unit
         .mem_addr_o     (data_addr),
         .mem_wd_o       (data_wd),
         .mem_rd_i       (data_rd),
-        .mem_ready_i
+        .mem_ready_i    (data_ready)
     );
 
     instr_mem instr_mem_dev
