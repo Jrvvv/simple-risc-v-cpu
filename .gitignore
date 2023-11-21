@@ -43,7 +43,7 @@
 #########
 #Simulation logic analyzer
 #########
-# !*.wcfg
+!*.wcfg
 # !*.coe
 #########
 #MIG
