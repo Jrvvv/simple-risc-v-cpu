@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_riscv_unit_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="alu_opcodes_pkg" />
+            <top_module name="csr_pkg" />
+            <top_module name="glbl" />
+            <top_module name="riscv_pkg" />
+            <top_module name="tb_riscv_unit" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="82370fs"></ZoomEndTime>
+      <Cursor1Time time="0fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="175"></NameColumnWidth>
+      <ValueColumnWidth column_width="138"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="7" />
+   <wvobject type="logic" fp_name="/tb_riscv_unit/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_riscv_unit/rst">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_riscv_unit/unit/core/PC">
+      <obj_property name="ElementShortName">PC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group69">
+      <obj_property name="label">core</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_riscv_unit/unit/core/mem_rd_i">
+         <obj_property name="ElementShortName">mem_rd_i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem_rd_i[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group68">
+      <obj_property name="label">lsu</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_riscv_unit/unit/lsu/mem_wd_o">
+         <obj_property name="ElementShortName">mem_wd_o[31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem_wd_o[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/unit/lsu/mem_rd_i">
+         <obj_property name="ElementShortName">mem_rd_i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem_rd_i[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group70">
+      <obj_property name="label">rf</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_riscv_unit/unit/core/rf_dev/rf_mem[1]">
+         <obj_property name="ElementShortName">[1][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/unit/core/rf_dev/rf_mem[0]">
+         <obj_property name="ElementShortName">[0][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group120">
+      <obj_property name="label">ext_mem</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_riscv_unit/unit/ext_mem_dev/RAM[1]">
+         <obj_property name="ElementShortName">[1][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/unit/ext_mem_dev/RAM[0]">
+         <obj_property name="ElementShortName">[0][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
