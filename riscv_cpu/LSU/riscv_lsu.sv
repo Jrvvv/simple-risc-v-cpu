@@ -36,8 +36,8 @@ module riscv_lsu
 
     // stright from in to out
     assign mem_req_o    = core_req_i;
-    assign mem_we_o     = core_we_i; 
-    assign core_addr_o  = mem_addr_o;
+    assign mem_we_o     = core_we_i;
+    assign mem_addr_o   = core_addr_i;
 
     // setting stall out value
     assign core_stall_o = core_req_i & ~(mem_ready_i & stall_reg);
