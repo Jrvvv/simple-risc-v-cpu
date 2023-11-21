@@ -28,26 +28,10 @@ module ext_mem
     // writing
     always_ff @(posedge clk_i) begin
         if (mem_req_i && write_enable_i) begin
-
-            if (byte_enable_i[0])
-                RAM[addr_i[31:2]][7:  0] <=     write_data_i [7:  0];
-            else
-                RAM[addr_i[31:2]][7:  0] <= RAM[addr_i[31:2]][7:  0];
-
-            if (byte_enable_i[1])
-                RAM[addr_i[31:2]][15: 8] <=     write_data_i [15: 8];
-            else
-                RAM[addr_i[31:2]][15: 8] <= RAM[addr_i[31:2]][15: 8];
-
-            if (byte_enable_i[2])
-                RAM[addr_i[31:2]][23:16] <=     write_data_i [23:16];
-            else
-                RAM[addr_i[31:2]][23:16] <= RAM[addr_i[31:2]][23:16];
-
-            if (byte_enable_i[3])
-                RAM[addr_i[31:2]][31:24] <=     write_data_i [31:24];
-            else
-                RAM[addr_i[31:2]][31:24] <= RAM[addr_i[31:2]][31:24];
+            RAM[addr_i[31:2]][7 : 0] <= (byte_enable_i[0]) ? write_data_i [7 : 0] : RAM[addr_i[31:2]][7 : 0];
+            RAM[addr_i[31:2]][15: 8] <= (byte_enable_i[1]) ? write_data_i [15: 8] : RAM[addr_i[31:2]][15: 8];
+            RAM[addr_i[31:2]][23:16] <= (byte_enable_i[2]) ? write_data_i [23:16] : RAM[addr_i[31:2]][23:16];
+            RAM[addr_i[31:2]][31:24] <= (byte_enable_i[3]) ? write_data_i [31:24] : RAM[addr_i[31:2]][31:24];
         end else begin
             RAM[addr_i[31:2]] <= RAM[addr_i[31:2]];
         end
