@@ -114,7 +114,7 @@ module riscv_lsu
             LDST_B: begin
                 mem_wd_o <= {4{core_wd_i[7:0]}};
             end
-            
+
             LDST_H: begin
                 mem_wd_o <= {2{core_wd_i[15:0]}};
             end
