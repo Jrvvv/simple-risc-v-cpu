@@ -144,7 +144,7 @@ module riscv_core
     end
 
     // IS RESET BY POS OR NEG??
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i)
             PC <= 32'b0;
         else if (stall_i)
