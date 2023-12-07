@@ -41,9 +41,14 @@ module riscv_lsu
 
     // setting stall out value
     assign core_stall_o = core_req_i & ~(mem_ready_i & stall_reg);
+
     // setting stall reg value
-    always_ff@(posedge clk_i)
-        stall_reg <= core_stall_o;
+    always_ff@(posedge clk_i) begin
+        if (rst_i)
+            stall_reg <= 1'b0;
+        else
+            stall_reg <= core_stall_o;
+    end
 
     // setting mem_be_o value
     always_comb begin
