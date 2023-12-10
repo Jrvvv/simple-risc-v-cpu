@@ -18,17 +18,39 @@ module interrupt_controller
     logic irq_h;
     logic exc_h;
 
+    logic exc_set;
+    logic exc_reset;
+    logic exc_in;
+
+    logic irq_set;
+    logic irq_reset;
+    logic irq_in;
+
+    logic int_mask;
+
+    assign int_mask     = irq_req_i & mie_i;
+
     assign irq_cause_o  = 32'h1000_0010;
-    assign irq_o        = (irq_req_i & mie_i) & ~(irq_h | (exception_i | exc_h));
-    assign irq_ret_o    = mret_i & ~(exception_i | exc_h);
+
+    assign exc_set      = exception_i | exc_h;
+    assign exc_reset    = mret_i;
+    assign exc_in       = ~exc_reset & exc_set;
+
+    assign irq_set      = irq_o | irq_h;
+    assign irq_reset    = mret_i & ~exc_set;
+    assign irq_in       = ~irq_reset & irq_set;
+
+    assign irq_ret_o    = irq_reset;
+
+    assign irq_o        = ~(exc_set | irq_h) & int_mask;
 
     always_ff @(posedge clk_i) begin
         if (rst_i) begin
             exc_h <= 1'b0;
             irq_h <= 1'b0;
         end else begin
-            exc_h <= ~mret_i & (exception_i | exc_h);
-            irq_h <= 
+            exc_h <= exc_in;
+            irq_h <= irq_in;
         end
     end
 
