@@ -40,13 +40,15 @@ module riscv_unit
         .stall_i        (core_stall),
         .instr_i        (instr),
         .mem_rd_i       (core_rd),
+        .irq_req_i      (),         // TODO: add wire
 
         .instr_addr_o   (instr_addr),
         .mem_addr_o     (core_addr),
         .mem_size_o     (core_size),
         .mem_req_o      (core_req),
         .mem_we_o       (core_we),
-        .mem_wd_o       (core_wd)
+        .mem_wd_o       (core_wd),
+        .irq_ret_o      ()          // TODO: add wire
     );
 
     riscv_lsu lsu

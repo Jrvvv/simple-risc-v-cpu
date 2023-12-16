@@ -21,8 +21,10 @@ module instr_mem
 //        $readmemh("my_riscv_prog_bin.txt", RAM);
         
         // for testing LSU
-        $readmemh("ls_test_bin.txt", RAM);
-
+//        $readmemh("ls_test_bin.txt", RAM);
+        
+        // for testing CSR and IRQ
+        $readmemh("interrupt_prog_code_bin.txt", RAM);
 
     end
         
