@@ -32,6 +32,9 @@ module riscv_unit
     logic   [31:0]  instr_addr;
     logic   [31:0]  instr;
 
+    logic           irq_ret;
+    logic           irq_req;
+
     riscv_core core
     (
         .clk_i          (clk_i),
@@ -40,7 +43,7 @@ module riscv_unit
         .stall_i        (core_stall),
         .instr_i        (instr),
         .mem_rd_i       (core_rd),
-        .irq_req_i      (),         // TODO: add wire
+        .irq_req_i      (irq_req),
 
         .instr_addr_o   (instr_addr),
         .mem_addr_o     (core_addr),
@@ -48,7 +51,7 @@ module riscv_unit
         .mem_req_o      (core_req),
         .mem_we_o       (core_we),
         .mem_wd_o       (core_wd),
-        .irq_ret_o      ()          // TODO: add wire
+        .irq_ret_o      (irq_ret)
     );
 
     riscv_lsu lsu
