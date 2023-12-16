@@ -65,6 +65,7 @@ module riscv_core
     logic [31:0] imm_S;
     logic [31:0] imm_B;
     logic [31:0] imm_J;
+    logic [31:0] imm_Z;
     
     // csr wires
     logic [31:0] mie;
@@ -192,13 +193,12 @@ module riscv_core
     assign addr_jb_res  = PC  + jb_or_4;
     assign RD1_I_add    = RD1 + imm_I;
 
-
     always_comb begin
         case(mret)
             1'd0: case(trap)
                     1'd0: case(jalr)
-                            1'd0: to_PC <= {RD1_I_add[31:1], 1'b0};
-                            1'd1: to_PC <= addr_jb_res;
+                            1'd0: to_PC <= addr_jb_res;
+                            1'd1: to_PC <= {RD1_I_add[31:1], 1'b0};
                         endcase
                     1'd1: to_PC <= mtvec;
                 endcase
@@ -228,14 +228,13 @@ module riscv_core
         endcase
     end
 
-    // IS RESET BY POS OR NEG??
     always_ff @(posedge clk_i) begin
         if (rst_i)
             PC <= 32'b0;
-        else if (stall_i)
-            PC <= PC;
-        else
+        else if (!stall_i)
             PC <= to_PC;
+        else
+            PC <= PC;
     end
 
 endmodule

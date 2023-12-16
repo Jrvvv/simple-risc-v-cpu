@@ -13,6 +13,7 @@ module riscv_unit
     logic   [2: 0]  core_size;
     logic   [31:0]  core_wd;
     logic   [31:0]  core_addr;
+    
     // to core from LSU
     logic           core_stall;
     logic   [31:0]  core_rd;
@@ -24,6 +25,7 @@ module riscv_unit
     logic   [3: 0]  data_be;
     logic   [31:0]  data_wd;
     logic   [31:0]  data_addr;
+    
     // to LSU from data mem
     logic           data_ready;
     logic   [31:0]  data_rd;
