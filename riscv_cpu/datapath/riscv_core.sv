@@ -73,8 +73,8 @@ module riscv_core
     logic        trap;
     logic [31:0] mepc;
     logic [31:0] mtvec;
-    logic        irq_cause;
-    logic        mcause;
+    logic [31:0] irq_cause;
+    logic [31:0] mcause;
 
 
     // RF memory module
