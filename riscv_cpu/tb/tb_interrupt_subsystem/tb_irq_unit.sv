@@ -29,8 +29,7 @@ module tb_irq_unit();
     initial clk = 0;
     always #10 clk = ~clk;
 
-    initial begin
-        $display( "\nStart test: \n\n==========================\nCLICK THE BUTTON 'Run All'\n==========================\n"); $stop();
+    initial begin        $display( "\nStart test: \n\n==========================\nCLICK THE BUTTON 'Run All'\n==========================\n"); $stop();
         unit.irq_req = 0;
         rst = 1;
         #20;

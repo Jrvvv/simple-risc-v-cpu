@@ -14,15 +14,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="323268fs"></ZoomStartTime>
-      <ZoomEndTime time="389569fs"></ZoomEndTime>
-      <Cursor1Time time="355268fs"></Cursor1Time>
+      <ZoomStartTime time="301500fs"></ZoomStartTime>
+      <ZoomEndTime time="371701fs"></ZoomEndTime>
+      <Cursor1Time time="360000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="175"></NameColumnWidth>
-      <ValueColumnWidth column_width="126"></ValueColumnWidth>
+      <ValueColumnWidth column_width="122"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="15" />
+   <WVObjectSize size="17" />
    <wvobject type="logic" fp_name="/tb_irq_unit/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -135,5 +135,13 @@
          <obj_property name="CustomSignalColor">#FFA500</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_irq_unit/unit/core/rf_dev/rf_mem[5]">
+      <obj_property name="ElementShortName">[5][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[5][31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_irq_unit/unit/core/scr_controller_dev/read_data_o">
+      <obj_property name="ElementShortName">read_data_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">read_data_o[31:0]</obj_property>
    </wvobject>
 </wave_config>

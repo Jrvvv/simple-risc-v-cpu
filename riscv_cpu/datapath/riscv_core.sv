@@ -25,7 +25,7 @@ module riscv_core
     logic [4 :0] alu_op;
     logic [1 :0] a_sel;
     logic [2 :0] b_sel;
-    logic        wb_sel;
+    logic [1 :0] wb_sel;
     logic        jal;
     logic        jalr;
     logic        b;
