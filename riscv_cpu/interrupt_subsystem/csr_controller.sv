@@ -56,13 +56,13 @@ module csr_controller
     end
 
     always_comb begin
-        mie_en      <= 32'b0;
-        mtvec_en    <= 32'b0;
-        mscratch_en <= 32'b0;
-        mepc_en     <= 32'b0;
-        mcause_en   <= 32'b0;
+        mie_en      <= 1'b0;
+        mtvec_en    <= 1'b0;
+        mscratch_en <= 1'b0;
+        mepc_en     <= 1'b0;
+        mcause_en   <= 1'b0;
 
-        read_data_o <= 32'b0;
+        read_data_o <= 1'b0;
 
         case(addr_i)
             MIE_ADDR        : begin
