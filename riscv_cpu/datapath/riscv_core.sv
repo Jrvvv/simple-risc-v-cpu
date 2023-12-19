@@ -9,7 +9,7 @@ module riscv_core
     input   logic [31:0] instr_i,
     input   logic [31:0] mem_rd_i,
     
-    input  logic         irq_req_i,
+    input   logic        irq_req_i,
 
     output  logic [31:0] instr_addr_o,
     output  logic [31:0] mem_addr_o,
@@ -17,7 +17,7 @@ module riscv_core
     output  logic        mem_req_o,
     output  logic        mem_we_o,
     output  logic [31:0] mem_wd_o,
-    output logic         irq_ret_o
+    output  logic        irq_ret_o
 );
     logic [31:0] wb_data;
 

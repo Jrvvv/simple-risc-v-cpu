@@ -3,8 +3,38 @@
 module riscv_unit
 (
     input  logic        clk_i,
-    input  logic        rst_i
+    input  logic        resetn_i,
+    // Входы и выходы периферии
+    input  logic [15:0] sw_i,       // Переключатели
+
+    output logic [15:0] led_o,      // Светодиоды
+
+    input  logic        kclk_i,     // Тактирующий сигнал клавиатуры
+    input  logic        kdata_i,    // Сигнал данных клавиатуры
+
+    output logic [ 6:0] hex_led_o,  // Вывод семисегментных индикаторов
+    output logic [ 7:0] hex_sel_o,  // Селектор семисегментных индикаторов
+
+    input  logic        rx_i,       // Линия приема по UART
+    output logic        tx_o,       // Линия передачи по UART
+
+    output logic [3:0]  vga_r_o,    // красный канал vga
+    output logic [3:0]  vga_g_o,    // зеленый канал vga
+    output logic [3:0]  vga_b_o,    // синий канал vga
+    output logic        vga_hs_o,   // линия горизонтальной синхронизации vga
+    output logic        vga_vs_o    // линия вертикальной синхронизации vga
 );
+
+    // Freq devider wires and module
+    logic sysclk, rst;
+    sys_clk_rst_gen divider
+    (
+        .ex_clk_i       (clk_i),
+        .ex_areset_n_i  (resetn_i),
+        .div_i          (5),
+        .sys_clk_o      (sysclk),
+        .sys_reset_o    (rst)
+    );
 
     // core <-> LSU wires
     // from core to LSU
@@ -39,8 +69,8 @@ module riscv_unit
 
     riscv_core core
     (
-        .clk_i          (clk_i),
-        .rst_i          (rst_i),
+        .clk_i          (sysclk),
+        .rst_i          (rst),
 
         .stall_i        (core_stall),
         .instr_i        (instr),
@@ -58,8 +88,8 @@ module riscv_unit
 
     riscv_lsu lsu
     (
-        .clk_i          (clk_i),
-        .rst_i          (rst_i),
+        .clk_i          (sysclk),
+        .rst_i          (rst),
 
         .core_req_i     (core_req),
         .core_we_i      (core_we),
@@ -86,7 +116,7 @@ module riscv_unit
 
     ext_mem ext_mem_dev
     (
-        .clk_i          (clk_i),
+        .clk_i          (sysclk),
         .mem_req_i      (data_req),
         .write_enable_i (data_we),
         .byte_enable_i  (data_be),
