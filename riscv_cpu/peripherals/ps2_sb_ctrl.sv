@@ -68,11 +68,12 @@ module ps2_sb_ctrl
 
     PS2Receiver ps2_reciever_dev
     (
-        .clk_i          (clk_i),                // The clock signal of the processor and your controller module
-        .kclk_i         (kclk_i),               // Clock signal coming from the keyboard
-        .kdata_i        (kdata_i),              // Data signal coming from the keyboard
-        .keycode_o      (keycode),              // Signal of the key scan code received from the keyboard
-        .keycode_valid_o(keycode_valid)         // Data readiness signal at the keycodeout output
+        .clk_i(clk_i),                          // The clock signal of the processor and your controller module
+        .rst_i(rst_i),                          // Reset
+        .kclk_i(kclk_i),                        // Clock signal coming from the keyboard
+        .kdata_i(kdata_i),                      // Data signal coming from the keyboard
+        .keycodeout_o(keycode),                 // Signal of the key scan code received from the keyboard
+        .keycode_valid_o(keycode_valid)      // Data readiness signal at the keycodeout output
     );
 
     assign interrupt_request_o = scan_code_is_unread;

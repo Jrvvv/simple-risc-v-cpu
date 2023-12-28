@@ -56,7 +56,7 @@ module vga_sb_ctrl
         end
     end
 
-    // ride enable
+    // read enable
     always_ff @(posedge clk_i) begin
         if(rst_i) begin
             read_data_o <= 32'b0;
