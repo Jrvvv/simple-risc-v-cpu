@@ -4,25 +4,32 @@ module riscv_unit
 (
     input  logic        clk_i,
     input  logic        resetn_i,
-    // Входы и выходы периферии
-    input  logic [15:0] sw_i,       // Переключатели
+    
+    // Peripherial in's/out's
+    // Switches
+    input  logic [15:0] sw_i,
+    
+    // Leds
+    output logic [15:0] led_o,
 
-    output logic [15:0] led_o,      // Светодиоды
+    // Keyboard (PS/2)
+    input  logic        kclk_i,
+    input  logic        kdata_i,
 
-    input  logic        kclk_i,     // Тактирующий сигнал клавиатуры
-    input  logic        kdata_i,    // Сигнал данных клавиатуры
+    // 7-seg leds
+    output logic [ 6:0] hex_led_o,  // out
+    output logic [ 7:0] hex_sel_o,  // selector
 
-    output logic [ 6:0] hex_led_o,  // Вывод семисегментных индикаторов
-    output logic [ 7:0] hex_sel_o,  // Селектор семисегментных индикаторов
-
-    input  logic        rx_i,       // Линия приема по UART
-    output logic        tx_o,       // Линия передачи по UART
-
-    output logic [3:0]  vga_r_o,    // красный канал vga
-    output logic [3:0]  vga_g_o,    // зеленый канал vga
-    output logic [3:0]  vga_b_o,    // синий канал vga
-    output logic        vga_hs_o,   // линия горизонтальной синхронизации vga
-    output logic        vga_vs_o    // линия вертикальной синхронизации vga
+    // UART
+    input  logic        rx_i,       // recieve
+    output logic        tx_o,       // transceive
+    
+    // VGA
+    output logic [3:0]  vga_r_o,    // red chanel
+    output logic [3:0]  vga_g_o,    // green chanel
+    output logic [3:0]  vga_b_o,    // blue chanel
+    output logic        vga_hs_o,   // horizontal sync 
+    output logic        vga_vs_o    // vertical sync 
 );
 
     // Freq devider wires and module
