@@ -4,7 +4,7 @@ module riscv_unit
 (
     input  logic        clk_i,
     input  logic        resetn_i,
-    
+
     // Peripherial in's/out's
     // Switches
     input  logic [15:0] sw_i,
@@ -23,7 +23,7 @@ module riscv_unit
     // UART
     input  logic        rx_i,       // recieve
     output logic        tx_o,       // transceive
-    
+
     // VGA
     output logic [3:0]  vga_r_o,    // red chanel
     output logic [3:0]  vga_g_o,    // green chanel
@@ -32,16 +32,8 @@ module riscv_unit
     output logic        vga_vs_o    // vertical sync 
 );
 
-    // Freq devider wires and module
+    // Freq devider wires
     logic sysclk, rst;
-    sys_clk_rst_gen divider
-    (
-        .ex_clk_i       (clk_i),
-        .ex_areset_n_i  (resetn_i),
-        .div_i          (5),
-        .sys_clk_o      (sysclk),
-        .sys_reset_o    (rst)
-    );
 
     // core <-> LSU wires
     // from core to LSU
@@ -71,8 +63,28 @@ module riscv_unit
     logic   [31:0]  instr_addr;
     logic   [31:0]  instr;
 
+    // interrupt signals out(ret)/in(req)
     logic           irq_ret;
     logic           irq_req;
+
+    // one hot encoder
+    logic [255:0] one_hot_encoder;
+
+    // address in perepherial mem space
+    logic [31 :0] peripherial_addr;
+
+    assign one_hot_encoder  = 256'b1 << data_addr[31:24];
+    assign peripherial_addr = {8'd0, data_addr[23:0]};
+
+    // freq devider
+    sys_clk_rst_gen divider
+    (
+        .ex_clk_i       (clk_i),
+        .ex_areset_n_i  (resetn_i),
+        .div_i          (5),
+        .sys_clk_o      (sysclk),
+        .sys_reset_o    (rst)
+    );
 
     riscv_core core
     (
