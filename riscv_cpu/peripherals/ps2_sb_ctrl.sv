@@ -108,8 +108,8 @@ module ps2_sb_ctrl
             rd_reg <= 32'b0;
         end else if (rd_reg_en) begin
             case(1'b1)
-                is_pressed_addr: rd_reg <= {{24{1'b0}}, scan_code};
-                is_unread_addr : rd_reg <= {{31{1'b0}}, scan_code_is_unread};
+                is_pressed_addr: rd_reg <= {24'b0, scan_code};
+                is_unread_addr : rd_reg <= {31'b0, scan_code_is_unread};
                 default        : rd_reg <= rd_reg;    // is necessary? rd_reg_en true only if one of is_pressed/is_unread true
             endcase
         end else begin
