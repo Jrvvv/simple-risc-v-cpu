@@ -27,12 +27,14 @@ module data_mem
     input   logic        write_enable_i,
     input   logic [31:0] addr_i,
     input   logic [31:0] write_data_i,
-    output  logic [31:0] read_data_o       
+    output  logic [31:0] read_data_o
 );
 
     logic [31:0] RAM [4095:0];
     logic [31:0] current_data;
-    
+
+    read
+
     // reading
     always_ff @(posedge clk_i) begin
         if (mem_req_i)
@@ -40,7 +42,7 @@ module data_mem
         else
             current_data <= current_data; 
     end
-    
+
     // writing
     always_ff @(posedge clk_i) begin
         if (mem_req_i && write_enable_i)

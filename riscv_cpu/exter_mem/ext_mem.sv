@@ -15,6 +15,8 @@ module ext_mem
     logic [31:0] RAM [4095:0];
     logic [31:0] current_data;
     
+    initial $readmemh("lab_12_ps2ascii_data.mem", RAM);
+    
     assign ready_o = 1'b1;
     
     // reading

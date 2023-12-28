@@ -17,14 +17,17 @@ module instr_mem
 //        $readmemh("converted_looped.txt", RAM);
 
         // for risc-v core
-//        $readmemh("program.txt", RAM);
-//        $readmemh("my_riscv_prog_bin.txt", RAM);
+//        $readmemh("program.mem", RAM);
+//        $readmemh("my_riscv_prog.mem", RAM);
         
         // for testing LSU
-//        $readmemh("ls_test_bin.txt", RAM);
+//        $readmemh("ls_test.mem", RAM);
         
         // for testing CSR and IRQ
-        $readmemh("interrupt_prog_code_bin.txt", RAM);
+//        $readmemh("interrupt_prog_code.mem", RAM);
+       
+        // for vga/ps2 testing
+        $readmemh("lab_12_ps2_vga_instr.mem", RAM);
 
     end
         
