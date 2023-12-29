@@ -15,15 +15,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="902300000fs"></ZoomStartTime>
-      <ZoomEndTime time="902990001fs"></ZoomEndTime>
-      <Cursor1Time time="902515000fs"></Cursor1Time>
+      <ZoomStartTime time="902015000fs"></ZoomStartTime>
+      <ZoomEndTime time="903403001fs"></ZoomEndTime>
+      <Cursor1Time time="902331000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="175"></NameColumnWidth>
-      <ValueColumnWidth column_width="134"></ValueColumnWidth>
+      <ValueColumnWidth column_width="130"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="12" />
+   <WVObjectSize size="7" />
    <wvobject type="logic" fp_name="/tb_riscv_unit/dut/sysclk">
       <obj_property name="ElementShortName">sysclk</obj_property>
       <obj_property name="ObjectShortName">sysclk</obj_property>
@@ -38,49 +38,64 @@
       <obj_property name="CustomSignalColor">#00FFFF</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/data_wd">
-      <obj_property name="ElementShortName">data_wd[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_wd[31:0]</obj_property>
+   <wvobject type="group" fp_name="group366">
+      <obj_property name="label">wd/rd</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/data_wd">
+         <obj_property name="ElementShortName">data_wd[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_wd[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/data_rd">
+         <obj_property name="ElementShortName">data_rd[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_rd[31:0]</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/data_rd">
-      <obj_property name="ElementShortName">data_rd[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_rd[31:0]</obj_property>
+   <wvobject type="group" fp_name="group368">
+      <obj_property name="label">rd peripheral outs</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/data_mem_rd">
+         <obj_property name="ElementShortName">data_mem_rd[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_mem_rd[31:0]</obj_property>
+         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/vga_ctrl_rd">
+         <obj_property name="ElementShortName">vga_ctrl_rd[31:0]</obj_property>
+         <obj_property name="ObjectShortName">vga_ctrl_rd[31:0]</obj_property>
+         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/ps2_ctrl_rd">
+         <obj_property name="ElementShortName">ps2_ctrl_rd[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ps2_ctrl_rd[31:0]</obj_property>
+         <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/data_mem_rd">
-      <obj_property name="ElementShortName">data_mem_rd[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_mem_rd[31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#008000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/vga_ctrl_rd">
-      <obj_property name="ElementShortName">vga_ctrl_rd[31:0]</obj_property>
-      <obj_property name="ObjectShortName">vga_ctrl_rd[31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#008000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/ps2_ctrl_rd">
-      <obj_property name="ElementShortName">ps2_ctrl_rd[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ps2_ctrl_rd[31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#008000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_riscv_unit/dut/data_mem_req">
-      <obj_property name="ElementShortName">data_mem_req</obj_property>
-      <obj_property name="ObjectShortName">data_mem_req</obj_property>
-      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_riscv_unit/dut/ps2_ctrl_req">
-      <obj_property name="ElementShortName">ps2_ctrl_req</obj_property>
-      <obj_property name="ObjectShortName">ps2_ctrl_req</obj_property>
-      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_riscv_unit/dut/vga_ctrl_req">
-      <obj_property name="ElementShortName">vga_ctrl_req</obj_property>
-      <obj_property name="ObjectShortName">vga_ctrl_req</obj_property>
-      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
+   <wvobject type="group" fp_name="group369">
+      <obj_property name="label">peripheral reqs</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_riscv_unit/dut/data_mem_req">
+         <obj_property name="ElementShortName">data_mem_req</obj_property>
+         <obj_property name="ObjectShortName">data_mem_req</obj_property>
+         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_riscv_unit/dut/vga_ctrl_req">
+         <obj_property name="ElementShortName">vga_ctrl_req</obj_property>
+         <obj_property name="ObjectShortName">vga_ctrl_req</obj_property>
+         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_riscv_unit/dut/ps2_ctrl_req">
+         <obj_property name="ElementShortName">ps2_ctrl_req</obj_property>
+         <obj_property name="ObjectShortName">ps2_ctrl_req</obj_property>
+         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/tb_riscv_unit/dut/ps2_ctrl_dev/scan_code">
       <obj_property name="ElementShortName">scan_code[7:0]</obj_property>

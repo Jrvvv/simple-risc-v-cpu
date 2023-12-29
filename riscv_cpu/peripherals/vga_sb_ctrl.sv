@@ -33,6 +33,13 @@ module vga_sb_ctrl
     logic [31:0]  col_map_rdata;
     logic [31:0]  char_tiff_rdata;
 
+    // signals to indicate which req
+    logic write_req;
+    logic read_req;
+
+    assign write_req = req_i &  write_enable_i;
+    assign read_req  = req_i & ~write_enable_i;
+
     assign vga_char_addr                = addr_i[11:2];
     assign rw_char_sel                  = addr_i[13:12];
 
@@ -44,13 +51,13 @@ module vga_sb_ctrl
             char_tiff_we <= 1'b0;
         end else begin
             case(rw_char_sel)
-                2'b00   : char_map_we  <= write_enable_i;
-                2'b01   : col_map_we   <= write_enable_i;
-                2'b10   : char_tiff_we <= write_enable_i;
+                2'b00   : char_map_we  <= write_req;
+                2'b01   : col_map_we   <= write_req;
+                2'b10   : char_tiff_we <= write_req;
                 default : begin
-                    char_map_we  <= 1'b0;
-                    col_map_we   <= 1'b0;
-                    char_tiff_we <= 1'b0;
+                          char_map_we  <= 1'b0;
+                          col_map_we   <= 1'b0;
+                          char_tiff_we <= 1'b0;
                 end
             endcase
         end
@@ -61,12 +68,16 @@ module vga_sb_ctrl
         if(rst_i) begin
             read_data_o <= 32'b0;
         end else begin
-            case(rw_char_sel)
-                2'b00   : read_data_o  <= char_map_rdata;
-                2'b01   : read_data_o  <= col_map_rdata;
-                2'b10   : read_data_o  <= char_tiff_rdata;
-                default : read_data_o  <= read_data_o;
-            endcase
+            if (read_req) begin
+                case(rw_char_sel)
+                    2'b00   : read_data_o  <= char_map_rdata;
+                    2'b01   : read_data_o  <= col_map_rdata;
+                    2'b10   : read_data_o  <= char_tiff_rdata;
+                    default : read_data_o  <= 32'b0;
+                endcase
+            end else begin
+                read_data_o  <= 32'b0;
+            end
         end
     end
 
