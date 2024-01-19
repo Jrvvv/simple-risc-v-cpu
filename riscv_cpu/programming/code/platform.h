@@ -123,7 +123,7 @@ struct SUPER_COLLIDER_HANDLE
 struct SUPER_COLLIDER_HANDLE *const collider_ptr = CAST(struct SUPER_COLLIDER_HANDLE *const, 0xFF000000);
 
 // // Screen init string 30*80
-const uint8_t g_hello_str[] =
+uint8_t g_hello_str[] =
   "                                                                                "\
   "                                                                                "\
   "                                                                                "\
@@ -156,7 +156,7 @@ const uint8_t g_hello_str[] =
   "                                                                                ";
 
 // // Screen finish string 30*80
-const uint8_t g_goodbye_str[] =
+uint8_t g_goodbye_str[] =
   "                                                                                "\
   "                                                                                "\
   "                                                                                "\
