@@ -19,9 +19,9 @@ module ext_mem
 
     // hello wrld prog init
     initial $readmemh("init_data.mem", RAM);
-    
+
     assign ready_o = 1'b1;
-    
+
     // reading
     always_ff @(posedge clk_i) begin
         if (mem_req_i)

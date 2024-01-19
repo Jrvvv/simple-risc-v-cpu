@@ -33,8 +33,6 @@ module data_mem
     logic [31:0] RAM [4095:0];
     logic [31:0] current_data;
 
-    read
-
     // reading
     always_ff @(posedge clk_i) begin
         if (mem_req_i)

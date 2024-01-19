@@ -27,12 +27,10 @@ module instr_mem
 //        $readmemh("interrupt_prog_code.mem", RAM);
        
         // for vga/ps2 testing
-//        $readmemh("lab_12_ps2_vga_instr.mem", RAM);
+        // $readmemh("lab_12_ps2_vga_instr.mem", RAM);
         
         // hello wrld prog init
-        $readmemh("init_instr.mem", RAM);
-
-
+       $readmemh("init_instr.mem", RAM);
     end
         
     assign read_data_o = (addr_i <= 32'd4095) ? RAM[addr_i[31:2]] : 32'd0;
