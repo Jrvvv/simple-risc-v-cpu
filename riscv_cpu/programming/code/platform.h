@@ -26,7 +26,7 @@
 #define YEL_CLR    (uint8_t)0b110
 #define WHT_CLR    (uint8_t)0b111
 
-#define GET_COLOR(intns, text, back) ((intns << 8) | (text << 5) | (intns << 4) | back)
+#define GET_COLOR(intns, text, back) (uint8_t)((intns << 8) | (text << 5) | (intns << 4) | back)
 
 struct SW_HANDLE
 {
@@ -122,7 +122,7 @@ struct SUPER_COLLIDER_HANDLE
 };
 struct SUPER_COLLIDER_HANDLE *const collider_ptr = CAST(struct SUPER_COLLIDER_HANDLE *const, 0xFF000000);
 
-// Screen init string 30*80
+// // Screen init string 30*80
 const uint8_t g_hello_str[] =
   "                                                                                "\
   "                                                                                "\
@@ -156,7 +156,7 @@ const uint8_t g_hello_str[] =
   "                         Press any key to say goodbye to this cruel world :(((  "\
   "                                                                                ";
 
-// Screen finish string 30*80
+// // Screen finish string 30*80
 const uint8_t g_goodbye_str[] =
   "                                                                                "\
   "                                                                                "\

@@ -1,9 +1,15 @@
 #include "platform.h"
-#include <stdlib.h>
+// #include <stdlib.h>
 
 void init_color(volatile uint8_t* color_arr, uint8_t intns, uint8_t text, uint8_t back) {
   for (int i = 0; i < MAP_HEIGHT * MAP_WIDTH; i++) {
     color_arr[i] = GET_COLOR(intns, text, back);
+  }
+}
+
+void init_text_ch(char ch) {
+  for (int i = 0; i < MAP_HEIGHT * MAP_WIDTH; i++) {
+    char_map[i] = ch;
   }
 }
 
@@ -14,7 +20,6 @@ void init_text(const uint8_t* str_arr) {
 }
 
 int main(int argc, char** argv) {
-
   // uint8_t color_arr[MAP_HEIGHT * MAP_WIDTH];
   int  finish;
 
@@ -32,10 +37,11 @@ int main(int argc, char** argv) {
   // memcpy(char_map,  g_hello_str, (size_t)(MAP_HEIGHT * MAP_WIDTH));
 
   while(1) {                               // В бесконечном цикле
-
+    // init_text_ch('a');
     if (ps2_ptr->unread_data && !finish) {
       init_color(color_map, FADE_MODE, RED_CLR, WHT_CLR);
       init_text(g_goodbye_str);
+      // init_text_ch('b');
       finish = 1;
     }
   }
@@ -44,7 +50,6 @@ int main(int argc, char** argv) {
 }
 
 #define DEADLY_SERIOUS_EVENT 0xDEADDAD1
-
 
 void int_handler() {
 
