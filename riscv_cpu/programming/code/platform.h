@@ -26,7 +26,7 @@
 #define YEL_CLR    (uint8_t)0b110
 #define WHT_CLR    (uint8_t)0b111
 
-#define GET_COLOR(intns, text, back) (uint8_t)((intns << 8) | (text << 5) | (intns << 4) | back)
+#define GET_COLOR(intns, text, back) (uint8_t)((intns << 7) | (text << 4) | (intns << 3) | back)
 
 struct SW_HANDLE
 {
@@ -134,7 +134,6 @@ const uint8_t g_hello_str[] =
   "                                                                                "\
   "                                                                                "\
   "                                                                                "\
-  "                                                                                "\
   "     #   #          #   #                 #   #   #            #      #   #     "\
   "     #   #          #   #                 #  # #  #            #      #   #     "\
   "     #   #    ##    #   #    ##            # # # #    ##    ## #    ###   #     "\
@@ -164,11 +163,6 @@ const uint8_t g_goodbye_str[] =
   "                                                                                "\
   "                                                                                "\
   "                                                                                "\
-  "                                                                                "\
-  "                                                                                "\
-  "                                                                                "\
-  "                                                                                "\
-  "                                                                                "\
   "         ####                          #   #   #            #      #   #        "\
   "         #   #                         #  # #  #            #      #   #        "\
   "         #   #   #  #   ##              # # # #    ##    ## #    ###   #        "\
@@ -176,6 +170,10 @@ const uint8_t g_goodbye_str[] =
   "         #   #   #  #  ####             # # # #   #  #   #  #   #  #   #        "\
   "         #   #    ##   #                # # # #   #  #   #  #   #  #            "\
   "         ####    ##     ###              #   #     ##    #  #    ###   #        "\
+  "                                                                                "\
+  "                                                                                "\
+  "                                                                                "\
+  "                                                                                "\
   "                                                                                "\
   "                                                                                "\
   "                                                                                "\

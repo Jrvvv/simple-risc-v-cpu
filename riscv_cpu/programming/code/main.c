@@ -1,5 +1,4 @@
 #include "platform.h"
-// #include <stdlib.h>
 
 void init_color(volatile uint8_t* color_arr, uint8_t intns, uint8_t text, uint8_t back) {
   for (int i = 0; i < MAP_HEIGHT * MAP_WIDTH; i++) {
@@ -24,6 +23,8 @@ int main(int argc, char** argv) {
   int  finish;
 
   finish = 0;
+
+  ps2_ptr->rst = 1;
 
   init_color(color_map, FADE_MODE, CIN_CLR, WHT_CLR);
   // TODO: check this case if doesn't work
