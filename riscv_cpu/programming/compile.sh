@@ -22,7 +22,9 @@ UNUSED_SECTIONS=-Wl,--gc-sections           # удалять компоновщ�
 STARTUP_CONF=-nostartfiles                  # не использовать компоновщиком стартап-файлы стандартных библиотек
 
 # Linking obj files to get exec
-${CC} ${ISA} ${ABI} ${UNUSED_SECTIONS} ${STARTUP_CONF} -T code/linker_script.ld obj_files/startup.o obj_files/main.o -o result.elf
+# ${CC} ${ISA} ${ABI} ${UNUSED_SECTIONS} ${STARTUP_CONF} -T code/linker_script.ld obj_files/startup.o obj_files/main.o -o result.elf  # linker working
+${CC} ${ISA} ${ABI} ${UNUSED_SECTIONS} ${STARTUP_CONF} -T code/linker_script_orig.ld obj_files/startup.o obj_files/main.o -o result.elf  # linker orig
+
 
 # Obj copy and flags
 OBJ_CP=/opt/riscv/bin/riscv64-unknown-elf-objcopy
