@@ -32,11 +32,11 @@ void init_text(uint8_t str_arr[]) {
 
 int main(int argc, char** argv) {
   // uint8_t color_arr[MAP_HEIGHT * MAP_WIDTH];
-  int  finish;
+  int finish;
 
   finish = 0;
 
-  // ps2_ptr->rst = 1;
+  ps2_ptr->rst = 1;
 
   init_color(FADE_MODE, CIN_CLR, WHT_CLR);
   // TODO: check this case if doesn't work
