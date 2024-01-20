@@ -185,5 +185,5 @@ uint8_t g_goodbye_str[] =
   "                                                                                "\
   "                                                                                "\
   "                                                                                "\
-  "                                 Is it seriously your program? (C) Dolbaeb      "\
+  "                                 Is it seriously your program? (C) D@l#@>#      "\
   "                                                                                ";
