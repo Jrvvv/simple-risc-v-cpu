@@ -29,8 +29,8 @@ logic [3:0] cntr;
 
 initial begin clk = 0; ps2_clk = 0; end
 
-always #5ns clk = ~clk;
-always #50000 if(starter || (cntr > 0)) ps2_clk = ~ps2_clk; else ps2_clk = 1;
+always #2ns clk = ~clk;
+always #500000 if(starter || (cntr > 0)) ps2_clk = ~ps2_clk; else ps2_clk = 1;
 
 logic [11:0] data, uart_data;
 
@@ -84,12 +84,12 @@ initial begin: ps2_initial_block
   cntr = 0;
   starter = 0;
   data = 0;
-  repeat(10000) @(posedge clk);
+  repeat(800000) @(posedge clk);
   ps2_send_scan_code(8'h1c);
-  ps2_send_scan_code(8'he0);
-  ps2_send_scan_code(8'hf0);
-  ps2_send_scan_code(8'h1c);
-  ps2_send_scan_code(8'h5c);
+//  ps2_send_scan_code(8'he0);
+//  ps2_send_scan_code(8'hf0);
+//  ps2_send_scan_code(8'h1c);
+//  ps2_send_scan_code(8'h5c);
 end
 
 task ps2_send_scan_code(input logic [7:0] code);

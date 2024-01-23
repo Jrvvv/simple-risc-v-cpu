@@ -73,7 +73,7 @@ module ps2_sb_ctrl
         .kclk_i(kclk_i),                        // Clock signal coming from the keyboard
         .kdata_i(kdata_i),                      // Data signal coming from the keyboard
         .keycodeout_o(keycode),                 // Signal of the key scan code received from the keyboard
-        .keycode_valid_o(keycode_valid)      // Data readiness signal at the keycodeout output
+        .keycode_valid_o(keycode_valid)         // Data readiness signal at the keycodeout output
     );
 
     assign interrupt_request_o = scan_code_is_unread;
