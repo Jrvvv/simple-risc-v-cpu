@@ -143,8 +143,8 @@ uint8_t g_hello_str[] =
   "     #   #    ###   #   #    ##             #   #     ##    #  #    ###   #     "\
   "                                                                                "\
   "                                                                                "\
-  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"\
-  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"\
+  "                                                                                "\
+  "                                                                                "\
   "                                                                                "\
   "                                                                                "\
   "                                                                                "\
@@ -176,8 +176,8 @@ uint8_t g_goodbye_str[] =
   "                                                                                "\
   "                                                                                "\
   "                                                                                "\
-  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"\
-  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"\
+  "                                                                                "\
+  "                                                                                "\
   "                                                                                "\
   "                                                                                "\
   "                                                                                "\
