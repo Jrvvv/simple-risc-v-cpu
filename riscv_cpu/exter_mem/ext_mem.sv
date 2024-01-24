@@ -17,7 +17,7 @@ module ext_mem
 
     logic [31:0] pseudo_addr;
 
-    assign pseudo_addr = {18'b0, addr_i[13:2]};
+    assign pseudo_addr = {20'b0, addr_i[13:2]};
     
 //    initial $readmemh("lab_12_ps2ascii_data.mem", RAM);
 
