@@ -6,7 +6,7 @@ module instr_mem
     output  logic [31:0] read_data_o 
 );
 
-    logic [31:0] RAM [1023:0];
+    logic [31:0] RAM [1023:0];          // 4KiB size
     
     initial begin
         // for cybercobra
@@ -32,7 +32,8 @@ module instr_mem
         // hello wrld prog init
        $readmemh("init_instr.mem", RAM);
     end
-        
-    assign read_data_o = (addr_i <= 32'd4095) ? RAM[addr_i[31:2]] : 32'd0;
-    
+
+    // addr_i[11:2] because of 4KiB size of RAM
+    assign read_data_o = RAM[addr_i[11:2]];
+
 endmodule

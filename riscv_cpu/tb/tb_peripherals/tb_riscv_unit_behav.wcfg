@@ -15,15 +15,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="11499406000fs"></ZoomStartTime>
-      <ZoomEndTime time="11506546001fs"></ZoomEndTime>
-      <Cursor1Time time="11503006000fs"></Cursor1Time>
+      <ZoomStartTime time="3132000fs"></ZoomStartTime>
+      <ZoomEndTime time="3276401fs"></ZoomEndTime>
+      <Cursor1Time time="3206000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="175"></NameColumnWidth>
-      <ValueColumnWidth column_width="110"></ValueColumnWidth>
+      <ValueColumnWidth column_width="102"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="19" />
+   <WVObjectSize size="16" />
    <wvobject type="logic" fp_name="/tb_riscv_unit/dut/sysclk">
       <obj_property name="ElementShortName">sysclk</obj_property>
       <obj_property name="ObjectShortName">sysclk</obj_property>
@@ -116,56 +116,91 @@
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/PC">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">PC[31:0]</obj_property>
       <obj_property name="ObjectShortName">PC[31:0]</obj_property>
       <obj_property name="CustomSignalColor">#800000</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="label">PC</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/instr_i">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">instr_i[31:0]</obj_property>
       <obj_property name="ObjectShortName">instr_i[31:0]</obj_property>
       <obj_property name="CustomSignalColor">#800000</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="label">current_instr</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/scr_controller_dev/mepc_reg">
       <obj_property name="ElementShortName">mepc_reg[31:0]</obj_property>
       <obj_property name="ObjectShortName">mepc_reg[31:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/ext_mem_dev/RAM[4095]">
-      <obj_property name="ElementShortName">[4095][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[4095][31:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[5]">
+   <wvobject type="group" fp_name="group3466">
+      <obj_property name="label">used_regs</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="ElementShortName">[5][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[5][31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#0000A0</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-      <obj_property name="label">t0</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[6]">
-      <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="ElementShortName">[6][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[6][31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#0000A0</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-      <obj_property name="label">t1</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[10]">
-      <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="ElementShortName">[10][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[10][31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#0000A0</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-      <obj_property name="label">a0</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[2]">
-      <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="ElementShortName">[2][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[2][31:0]</obj_property>
-      <obj_property name="label">sp</obj_property>
-      <obj_property name="CustomSignalColor">#0000A0</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[5]">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">[5][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[5][31:0]</obj_property>
+         <obj_property name="CustomSignalColor">#0000A0</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="label">t0</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[6]">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">[6][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[6][31:0]</obj_property>
+         <obj_property name="CustomSignalColor">#0000A0</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="label">t1</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[10]">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">[10][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[10][31:0]</obj_property>
+         <obj_property name="CustomSignalColor">#0000A0</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="label">a0</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[2]">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">[2][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][31:0]</obj_property>
+         <obj_property name="label">sp</obj_property>
+         <obj_property name="CustomSignalColor">#0000A0</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[8]">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">[8][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[8][31:0]</obj_property>
+         <obj_property name="label">s0/fp</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[13]">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">[13][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[13][31:0]</obj_property>
+         <obj_property name="label">a3</obj_property>
+         <obj_property name="CustomSignalColor">#0000A0</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[14]">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">[14][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[14][31:0]</obj_property>
+         <obj_property name="label">a4</obj_property>
+         <obj_property name="CustomSignalColor">#0000A0</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/rf_dev/rf_mem[15]">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">[15][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[15][31:0]</obj_property>
+         <obj_property name="label">a5</obj_property>
+         <obj_property name="CustomSignalColor">#0000A0</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/tb_riscv_unit/dut/vga_ctrl_dev/vga_char_gen_dev/ch_map/mem">
       <obj_property name="DisplayName">label</obj_property>
@@ -180,5 +215,11 @@
       <obj_property name="ElementShortName">mem[0:1023][31:0]</obj_property>
       <obj_property name="ObjectShortName">mem[0:1023][31:0]</obj_property>
       <obj_property name="label">col_map</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_riscv_unit/dut/ext_mem_dev/RAM[4095]">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[4095][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[4095][31:0]</obj_property>
+      <obj_property name="label">data_mem</obj_property>
    </wvobject>
 </wave_config>
