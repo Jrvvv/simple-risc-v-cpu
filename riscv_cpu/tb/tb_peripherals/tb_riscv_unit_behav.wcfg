@@ -15,15 +15,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="2776027846fs"></ZoomStartTime>
-      <ZoomEndTime time="6406027847fs"></ZoomEndTime>
-      <Cursor1Time time="3696027846fs"></Cursor1Time>
+      <ZoomStartTime time="3064731083fs"></ZoomStartTime>
+      <ZoomEndTime time="3064768184fs"></ZoomEndTime>
+      <Cursor1Time time="3064762000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="175"></NameColumnWidth>
-      <ValueColumnWidth column_width="98"></ValueColumnWidth>
+      <ValueColumnWidth column_width="82"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="16" />
+   <WVObjectSize size="14" />
    <wvobject type="logic" fp_name="/tb_riscv_unit/dut/sysclk">
       <obj_property name="ElementShortName">sysclk</obj_property>
       <obj_property name="ObjectShortName">sysclk</obj_property>
@@ -131,10 +131,6 @@
       <obj_property name="UseCustomSignalColor">true</obj_property>
       <obj_property name="label">current_instr</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/core/scr_controller_dev/mepc_reg">
-      <obj_property name="ElementShortName">mepc_reg[31:0]</obj_property>
-      <obj_property name="ObjectShortName">mepc_reg[31:0]</obj_property>
-   </wvobject>
    <wvobject type="group" fp_name="group3466">
       <obj_property name="label">used_regs</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -217,9 +213,7 @@
       <obj_property name="ElementShortName">mem[0:1023][31:0]</obj_property>
       <obj_property name="ObjectShortName">mem[0:1023][31:0]</obj_property>
       <obj_property name="label">col_map</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_riscv_unit/dut/ext_mem_dev/read_data_o">
-      <obj_property name="ElementShortName">read_data_o[31:0]</obj_property>
-      <obj_property name="ObjectShortName">read_data_o[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#800080</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
 </wave_config>
