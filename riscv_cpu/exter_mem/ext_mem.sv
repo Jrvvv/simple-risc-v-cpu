@@ -37,10 +37,10 @@ module ext_mem
     // writing
     always_ff @(posedge clk_i) begin
         if (mem_req_i && write_enable_i) begin
-            RAM[pseudo_addr][7 : 0] <= (byte_enable_i[0]) ? write_data_i [7 : 0] : RAM[addr_i[31:2]][7 : 0];
-            RAM[pseudo_addr][15: 8] <= (byte_enable_i[1]) ? write_data_i [15: 8] : RAM[addr_i[31:2]][15: 8];
-            RAM[pseudo_addr][23:16] <= (byte_enable_i[2]) ? write_data_i [23:16] : RAM[addr_i[31:2]][23:16];
-            RAM[pseudo_addr][31:24] <= (byte_enable_i[3]) ? write_data_i [31:24] : RAM[addr_i[31:2]][31:24];
+            RAM[pseudo_addr][7 : 0] <= (byte_enable_i[0]) ? write_data_i [7 : 0] : RAM[pseudo_addr][7 : 0];
+            RAM[pseudo_addr][15: 8] <= (byte_enable_i[1]) ? write_data_i [15: 8] : RAM[pseudo_addr][15: 8];
+            RAM[pseudo_addr][23:16] <= (byte_enable_i[2]) ? write_data_i [23:16] : RAM[pseudo_addr][23:16];
+            RAM[pseudo_addr][31:24] <= (byte_enable_i[3]) ? write_data_i [31:24] : RAM[pseudo_addr][31:24];
         end else begin
             RAM[pseudo_addr] <= RAM[pseudo_addr];
         end
